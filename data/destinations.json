@@ -1,0 +1,40 @@
+{
+    "destinations": [
+        {
+            "destination": "Sydney",
+            "image": "http://kothareducationalservices.com/assets/australia.png",
+            "destinationDesc": "Sydney, for study its perfect destination. Sydney is Australia’s first city, both as the landing spot of the First Fleet (1788) and the first incorporated City Council (1842). This history is deeply reflected in Sydney’s strikingly iconic landmarks - the world-famous Sydney Opera House and Sydney Harbour Bridge - both must-see destination during your time here.",
+            "whyDestination": {
+                "title": "Why Sydney is best Destination for Studnets ?",
+                "ans": [
+                    {
+                        "title": "Perfectr Weather",
+                        "desc": "One of the reasons why international students love Sydney is for its temperate climate equivalent to fantastic summers and mild winters. Students make the most of the perfect weather doing a long list of outdoor activities, whether learning to surf, riding a bicycle or just exploring the city centre, there is plenty of things to do literally under the sun."
+                    },
+                    {
+                        "title": "History of academic excellence",
+                        "desc": "Home to the oldest university in Australia (The University of Sydney) and also amongst the best universities in the world (Ranked 42nd Globally), the city takes pride in its rich history of academic excellence. Recognised annually in world university rankings, international students can look forward to a rewarding future in education.."
+                    }
+                ]
+            }
+        },
+        {
+            "destination": "Melborn",
+            "image": "http://kothareducationalservices.com/assets/australia.png",
+            "destinationDesc": "Sydney, for study its perfect destination. Sydney is Australia’s first city, both as the landing spot of the First Fleet (1788) and the first incorporated City Council (1842). This history is deeply reflected in Sydney’s strikingly iconic landmarks - the world-famous Sydney Opera House and Sydney Harbour Bridge - both must-see destination during your time here.",
+            "whyDestination": {
+                "title": "Why Sydney is best Destination for Studnets ?",
+                "ans": [
+                    {
+                        "title": "Perfectr Weather",
+                        "desc": "One of the reasons why international students love Sydney is for its temperate climate equivalent to fantastic summers and mild winters. Students make the most of the perfect weather doing a long list of outdoor activities, whether learning to surf, riding a bicycle or just exploring the city centre, there is plenty of things to do literally under the sun."
+                    },
+                    {
+                        "title": "History of academic excellence",
+                        "desc": "Home to the oldest university in Australia (The University of Sydney) and also amongst the best universities in the world (Ranked 42nd Globally), the city takes pride in its rich history of academic excellence. Recognised annually in world university rankings, international students can look forward to a rewarding future in education.."
+                    }
+                ]
+            }
+        }
+    ]
+}

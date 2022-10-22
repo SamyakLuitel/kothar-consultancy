@@ -1,0 +1,19 @@
+{
+    "universities": [
+        {
+            "name": "monash",
+            "image": "https://www.universitiesaustralia.edu.au/wp-content/uploads/2019/05/Learning-and-Teaching-Building-Clayton-campus.jpg",
+            "website": "https://www.universitiesaustralia.edu.au/university/monash-university/"
+        },
+        {
+            "name": "monash",
+            "image": "https://www.universitiesaustralia.edu.au/wp-content/uploads/2019/05/Learning-and-Teaching-Building-Clayton-campus.jpg",
+            "website": "https://www.universitiesaustralia.edu.au/university/monash-university/"
+        },
+        {
+            "name": "monash",
+            "image": "https://www.universitiesaustralia.edu.au/wp-content/uploads/2019/05/Learning-and-Teaching-Building-Clayton-campus.jpg",
+            "website": "https://www.universitiesaustralia.edu.au/university/monash-university/"
+        }
+    ]
+}

@@ -1,54 +1,66 @@
 const express = require('express');
 // const path = reqquire('path')
 
+const destData = require('./data/destinations.json')
+const serviceData = require('./data/serviceData.json')
+const eventData = require('./data/eventsData.json')
+const newsData = require('./data/newsData.json')
+const testimonialData = require('./data/testimonialsData.json')
+const uniData = require('./data/uniDat.json')
+
+
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// if(process.env.NODE_ENV !="production"){
-//     require('dotenv').config({path:'server/config/config.env'}); 
-// }
-
-
-// import routes 
-
-
 const PORT = 3000;
 
 app.get('/', (req, res) => {
-    res.send("Kothar institute ....")
+    res.send("Kothar institute [v1]")
 })
 
-
-
-
-serviceData = {
-    "serviceMotto": "Provide awesome customer service with our experienced teachers",
-    "services": [
-        {
-            "serviceName": "library service",
-            "descripttion": "For especial members only, we are providing a huge range of standardized tests preparation materials. This facilities are given from our modernize library. In addition to this the college/ university section ",
-            "image": "http://kothareducationalservices.com/assets/library.png"
-        },
-        {
-            "serviceName": "library service",
-            "descripttion": "For especial members only, we are providing a huge range of standardized tests preparation materials. This facilities are given from our modernize library. In addition to this the college/ university section ",
-            "image": "http://kothareducationalservices.com/assets/library.png"
-        },
-        {
-            "serviceName": "library service",
-            "descripttion": "For especial members only, we are providing a huge range of standardized tests preparation materials. This facilities are given from our modernize library. In addition to this the college/ university section ",
-            "image": "http://kothareducationalservices.com/assets/library.png"
-        }
-    ],
-    "success": true
-}
 
 app.get('/kothar/services', (req, res) => {
     res.send(serviceData).json();
 })
+
+app.get('/kothar/destinations', (req, res) => {
+    // console.log(destData)
+    console.log("destination called..")
+    res.send(destData).json();
+})
+
+
+app.get('/kothar/events', (req, res) => {
+    // console.log(destData)
+    console.log("events called..")
+    res.send(eventData).json();
+})
+
+
+app.get('/kothar/universities', (req, res) => {
+    // console.log(destData)
+    console.log("unis called..")
+    res.send(uniData).json();
+})
+
+
+app.get('/kothar/news', (req, res) => {
+    // console.log(destData)
+    console.log("news called..")
+    res.send(newsData).json();
+})
+
+
+app.get('/kothar/testimonials', (req, res) => {
+    // console.log(destData)
+    console.log("news called..")
+    res.send(testimonialData).json();
+})
+
 //listening 
-app.listen(3000, ()=>{
-    console.log("Kothar backend running ...")
+app.listen(3000, () => {
+    console.log(`Kothar backend running ..., Started at ${Date()}`)
 });

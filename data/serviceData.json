@@ -1,0 +1,37 @@
+{
+    "serviceMotto": "Provide awesome customer service with our experienced teachers",
+    "services": [
+        {
+            "serviceName": "Work Placement",
+            "descripttion": "For especial members only, we are providing a huge range of standardized tests preparation materials. This facilities are given from our modernize library. In addition to this the college/ university section ",
+            "image": "http://kothareducationalservices.com/assets/library.png",
+            "what": {
+                "title": "What is work placement?",
+                "desc": "Wish to move abroad for further studies, work, or immigration? IELTS is the test for you! It is recognised by more than 10,000 organisations, including educational institutions, employers, professional associations, and governments, in 140 countries around the world. "
+            },
+            "who": {
+                "titlle": "Who is it for?",
+                "desc": "IELTS is recognised by universities and employers in many countries, including Australia, Canada, Ireland, New Zealand, the UK and the USA.It is also recognised by professional bodies, immigration authorities and other government agencies. More than 1.4 million people a year take the test."
+            },
+            "more": {
+                "title": "More Info About work plcament",
+                "infos": [
+                    {
+                        "title": "Hourly Rate",
+                        "desc": "10 dollar is the rate "
+                    },
+                    {
+                        "title": "Hourly Rate",
+                        "desc": "10 dollar is the rate "
+                    }
+                ]
+            }
+        },
+        {
+            "serviceName": "library service",
+            "descripttion": "For especial members only, we are providing a huge range of standardized tests preparation materials. This facilities are given from our modernize library. In addition to this the college/ university section ",
+            "image": "http://kothareducationalservices.com/assets/library.png"
+        }
+    ],
+    "success": true
+}
