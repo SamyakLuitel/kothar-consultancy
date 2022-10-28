@@ -7,6 +7,7 @@ const eventData = require('./data/eventsData.json')
 const newsData = require('./data/newsData.json')
 const testimonialData = require('./data/testimonialsData.json')
 const uniData = require('./data/uniDat.json')
+const cors = require('cors')
 
 
 
@@ -14,6 +15,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 
 const PORT = 3000;
 
@@ -21,6 +23,10 @@ app.get('/', (req, res) => {
     res.send("Kothar institute [v1]")
 })
 
+
+app.get('/cors', (req, res) => {
+    res.send("Kothar institute [v1]")
+})
 
 app.get('/kothar/services', (req, res) => {
     res.send(serviceData).json();

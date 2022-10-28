@@ -4,7 +4,7 @@
   "description": "kothar backend ",
   "main": "index.js",
   "engines": {
-    "node":"16.x"
+    "node": "16.x"
   },
   "scripts": {
     "start": "node index.js",
@@ -13,6 +13,7 @@
   "author": "Samayk Luitel",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2"
   }
 }
