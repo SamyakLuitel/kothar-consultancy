@@ -19,48 +19,48 @@ app.use(cors())
 
 const PORT = 3000;
 
-app.get('/', (req, res) => {
+app.get('/', cors(),(req, res) => {
     res.send("Kothar institute [v1]")
 })
 
 
-app.get('/cors', (req, res) => {
+app.get('/cors',cors(), (req, res) => {
     res.send("Kothar institute [v1]")
 })
 
-app.get('/kothar/services', (req, res) => {
+app.get('/kothar/services',cors(), (req, res) => {
     res.send(serviceData).json();
 })
 
-app.get('/kothar/destinations', (req, res) => {
+app.get('/kothar/destinations',cors(), (req, res) => {
     // console.log(destData)
     console.log("destination called..")
     res.send(destData).json();
 })
 
 
-app.get('/kothar/events', (req, res) => {
+app.get('/kothar/events',cors(), (req, res) => {
     // console.log(destData)
     console.log("events called..")
     res.send(eventData).json();
 })
 
 
-app.get('/kothar/universities', (req, res) => {
+app.get('/kothar/universities', cors(),(req, res) => {
     // console.log(destData)
     console.log("unis called..")
     res.send(uniData).json();
 })
 
 
-app.get('/kothar/news', (req, res) => {
+app.get('/kothar/news',cors(), (req, res) => {
     // console.log(destData)
     console.log("news called..")
     res.send(newsData).json();
 })
 
 
-app.get('/kothar/testimonials', (req, res) => {
+app.get('/kothar/testimonials', cors(),(req, res) => {
     // console.log(destData)
     console.log("news called..")
     res.send(testimonialData).json();
