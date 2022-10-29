@@ -10,6 +10,9 @@ const uniData = require('./data/uniDat.json')
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 
+// const swaggerOptions = require('./config/swaggerConig')
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUI = require('swagger-ui-express')
 
 
 const app = express();
@@ -17,6 +20,27 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
+
+
+
+const swaggerOptions = {
+    swaggerDefinition: {
+        info: {
+            title: "KOTHAR API",
+            description: "Kothar api doc",
+            contact: {
+                name: "samk"
+            },
+            servers: ['http://localhost:5000']
+
+
+        }
+    },
+    apis: ["index.js "]
+}
+
+const swaggerDoc = swaggerJsDoc(swaggerOptions)
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
 const PORT = 3000;
 const ACCESS_TOKEN_SECRET = "secret";
