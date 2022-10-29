@@ -2,6 +2,7 @@
     "serviceMotto": "Provide awesome customer service with our experienced teachers",
     "services": [
         {
+            "id": 1,
             "serviceName": "Work Placement",
             "descripttion": "For especial members only, we are providing a huge range of standardized tests preparation materials. This facilities are given from our modernize library. In addition to this the college/ university section ",
             "image": "http://kothareducationalservices.com/assets/library.png",
@@ -30,6 +31,7 @@
             }
         },
         {
+            "id": 2,
             "serviceName": "library service",
             "descripttion": "For especial members only, we are providing a huge range of standardized tests preparation materials. This facilities are given from our modernize library. In addition to this the college/ university section ",
             "image": "http://kothareducationalservices.com/assets/library.png"
