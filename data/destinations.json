@@ -1,6 +1,7 @@
 {
     "destinations": [
         {
+            "id": 1,
             "destination": "Sydney",
             "image": "http://kothareducationalservices.com/assets/australia.png",
             "destinationDesc": "Sydney, for study its perfect destination. Sydney is Australia’s first city, both as the landing spot of the First Fleet (1788) and the first incorporated City Council (1842). This history is deeply reflected in Sydney’s strikingly iconic landmarks - the world-famous Sydney Opera House and Sydney Harbour Bridge - both must-see destination during your time here.",
@@ -19,6 +20,7 @@
             }
         },
         {
+            "id": 2,
             "destination": "Melborn",
             "image": "http://kothareducationalservices.com/assets/australia.png",
             "destinationDesc": "Sydney, for study its perfect destination. Sydney is Australia’s first city, both as the landing spot of the First Fleet (1788) and the first incorporated City Council (1842). This history is deeply reflected in Sydney’s strikingly iconic landmarks - the world-famous Sydney Opera House and Sydney Harbour Bridge - both must-see destination during your time here.",

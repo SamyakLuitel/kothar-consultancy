@@ -17,10 +17,12 @@
                 "title": "More Info About work plcament",
                 "infos": [
                     {
+                        "id": 1,
                         "title": "Hourly Rate",
                         "desc": "10 dollar is the rate "
                     },
                     {
+                        "id": 2,
                         "title": "Hourly Rate",
                         "desc": "10 dollar is the rate "
                     }
