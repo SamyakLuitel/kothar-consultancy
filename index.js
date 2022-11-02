@@ -46,10 +46,37 @@ const PORT = 3000;
 const ACCESS_TOKEN_SECRET = "secret";
 //fetch from env in production
 
+
+//routes
+/**
+ * @swagger
+ * /login:
+ *  post:
+ *      description: login api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: login
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
+
 app.post('/login', (req, res) => {
     //Authenticate user
     console.log("performing login....")
     const username = req.body.username;
+    const password = req.body.password;
+    if(username!="admin"){
+        res.send("invalid username")
+    }
+
+    if(password!="password"){
+        res.send("invalid password")
+    }
     const user = { name: username }
     const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET)
 
@@ -62,18 +89,95 @@ app.post('/login', (req, res) => {
     res.json({ accessToken: accessToken })
 });
 
+
+
+/**
+ * @swagger
+ * /:
+ *  get:
+ *      description: desc api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: desc
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
+
 app.get('/', cors(), (req, res) => {
     res.send("Kothar institute [v1]")
 })
 
 
-app.get('/cors', cors(), (req, res) => {
+
+
+
+
+
+/**
+ * @swagger
+ * /cors:
+ *  get:
+ *      description: version api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: login
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
+
+app.get('/version', cors(), (req, res) => {
     res.send("Kothar institute [v1]")
 })
+
+
+/**
+ * @swagger
+ * /kothar/services:
+ *  get:
+ *      description: services api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: login
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
 
 app.get('/kothar/services', cors(), (req, res) => {
     res.send(serviceData).json();
 })
+
+
+/**
+ * @swagger
+ * /kothar/desination:
+ *  get:
+ *      description: destination api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: destination
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
 
 app.get('/kothar/destinations', cors(), (req, res) => {
     // console.log(destData)
@@ -82,6 +186,23 @@ app.get('/kothar/destinations', cors(), (req, res) => {
 })
 
 
+/**
+ * @swagger
+ * /kotahr/events:
+ *  get:
+ *      description: events api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: events
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
+
 app.get('/kothar/events', cors(), (req, res) => {
     // console.log(destData)
     console.log("events called..")
@@ -89,12 +210,45 @@ app.get('/kothar/events', cors(), (req, res) => {
 })
 
 
+/**
+ * @swagger
+ * /kothar/universities:
+ *  get:
+ *      description: universities api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: universities
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
+
 app.get('/kothar/universities', cors(), (req, res) => {
     // console.log(destData)
     console.log("unis called..")
     res.send(uniData).json();
 })
 
+/**
+ * @swagger
+ * /kotahr/news:
+ *  get:
+ *      description: news api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: news
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
 
 app.get('/kothar/news', cors(), (req, res) => {
     // console.log(destData)
@@ -102,12 +256,29 @@ app.get('/kothar/news', cors(), (req, res) => {
     res.send(newsData).json();
 })
 
+/**
+ * @swagger
+ * /kothar/tesimonials:
+ *  get:
+ *      description: testimonials api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: login
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
 
 app.get('/kothar/testimonials', cors(), (req, res) => {
     // console.log(destData)
     console.log("news called..")
     res.send(testimonialData).json();
 })
+
 
 //listening 
 app.listen(3000, () => {
@@ -128,10 +299,43 @@ function AuthenticateToken(req, res, next) {
     })
 }
 
+/**
+ * @swagger
+ * /kothar/admin:
+ *  get:
+ *      description: admin api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: login
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
 
-app.get('/kothar/admin', AuthenticateToken, (req, res) => {
+app.get('/kothar/admin/check', AuthenticateToken, (req, res) => {
     res.send("admin pannel")
 })
+
+/**
+ * @swagger
+ * /login:
+ *  post:
+ *      description: send message api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: login
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
 
 app.post('/kothar/send-message', (req, res) => {
     console.log("send msg ...")
@@ -141,6 +345,22 @@ app.post('/kothar/send-message', (req, res) => {
     })
 })
 
+/**
+ * @swagger
+ * /kothar/book-apointment:
+ *  post:
+ *      description: book apointment api
+ *      requestBody:
+ *      required: true 
+ *      parameters:
+ *      - in: body
+ *        name: login
+ *      content:
+ *          application/json
+ *      response:
+ *          '200':
+ *              description: access_token
+ */
 
 app.post('/kothar/book-appointment', (req, res) => {
     console.log("book appointment ...")
@@ -150,3 +370,11 @@ app.post('/kothar/book-appointment', (req, res) => {
         "success": true
     })
 })
+
+
+
+
+
+// https://www.youtube.com/watch?v=apouPYPh_as
+
+
