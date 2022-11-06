@@ -1,14 +1,31 @@
-const express = requires('express')
-var router = express.Router();
+const express = require('express')
+const router = express.Router();
+const {findAllService, findOneService, createNewService, updateNewService, deleteService} = require('../controller/serviceController')
 
-// get services api 
-router.get('/services', (req, res) => {
-    res.send("")
+//  services api 
+router.get('/', (req, res) => {
+    res.send("done")
 })
 
 
-router.post('/admin/service', (REq, res) => {
-    res.send("");
+
+// //get all 
+router.get('/def',findAllService);
+
+
+// //get one 
+router.get('/:id', findOneService);
+
+// //creating one 
+router.post('/',createNewService )
+
+// updating one 
+router.put('/:id', updateNewService)
+// deleting one 
+router.delete('/:id', deleteService)
+
+router.post('/admin/service', (req, res) => {
+    res.send("done ");
 })
 
 
