@@ -1,4 +1,4 @@
-const swaggerOptions = {
+exports.swaggerOptions = {
     info: {
         title: "KOTHAR API",
         description: "Kothar api doc",
@@ -12,4 +12,4 @@ const swaggerOptions = {
     apis:["index.js "]
 }
 
-module.exports.swaggerOptions;
+// module.exports.swaggerOptions;
