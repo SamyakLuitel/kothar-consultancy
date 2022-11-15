@@ -9,9 +9,6 @@ const {
 } = require("../controller/serviceController");
 
 //  services api
-router.get("/", (req, res) => {
-  res.send("done");
-});
 
 // //get all
 router.get("/", findAllService);
@@ -24,6 +21,7 @@ router.post("/", createNewService);
 
 // updating one
 router.put("/:id", updateNewService);
+
 // deleting one
 router.delete("/:id", deleteService);
 

@@ -1,46 +1,51 @@
 const mongoose = require("mongoose");
 
-const serviceModel = new mongoose.Schema({
+const serviceModel = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        reqiuired: true
+      type: String,
+      reqiuired: true,
     },
     description: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    image: { type: String }
-    ,
+    image: { type: String },
     what: {
-        title: {
-            type: String
-        },
-        desc: {
-            type: String
-        }
+      title: {
+        type: String,
+      },
+      desc: {
+        type: String,
+      },
     },
     who: {
-        title: {
-            type: String
-        },
-        desc: {
-            type: String
-        }
+      title: {
+        type: String,
+      },
+      desc: {
+        type: String,
+      },
     },
     more: {
-        title: {
-            type: String
+      title: {
+        type: String,
+      },
+      infos: [
+        {
+          title: {
+            type: String,
+          },
+          desc: {
+            type: String,
+          },
         },
-        infos: [{
-            title: {
-                type: String
-            },
-            desc: {
-                type: String
-            }
-        }]
-    }
-})
-
+      ],
+    },
+  },
+  { versionKey: false }
+).set("toJSON", {
+  virtuals: true,
+});
 
 module.exports = mongoose.model("Sevice", serviceModel);

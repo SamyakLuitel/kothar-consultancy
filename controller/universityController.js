@@ -1,4 +1,4 @@
-const University = require("../model/universityModel");
+const University = require("../model/uniModel");
 
 //university controller
 

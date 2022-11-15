@@ -1,14 +1,19 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const uniSchema = new mongoose.Schema({
+const uniSchema = new mongoose.Schema(
+  {
     destination: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Destination"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Destination",
     },
     image: { type: String },
     website: {
-        type: String
-    }
-})
+      type: String,
+    },
+  },
+  { versionKey: false }
+).set("toJSON", {
+  virtuals: true,
+});
 
-module.exports = mongoose.Schema("University", uniSchema)
+module.exports = mongoose.Schema("University", uniSchema);

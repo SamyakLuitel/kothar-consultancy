@@ -4,9 +4,15 @@ const Service = require("../model/serviceModel")
 
 exports.findAllService = async (req, res, next) => {
     try {
-        const services = await Service.find();
+        const allServices = await Service.find();
         console.log("find all")
-        res.json(services)
+        const serviceData ={
+            serviceMotto:"Provide awesome customer service with our experienced teachers",
+            services:allServices,
+            success:true, 
+            message:"data fetched"
+        }
+        res.json(serviceData)
     } catch (err) {
         console.log(err)
         res.status(500).json({ message: err.message })
@@ -27,10 +33,15 @@ exports.findOneService = (req, res, next) => {
 
 exports.createNewService = async (req, res, next) => {
     console.log("Creating new service")
+    console.log(req.body)
+    console.log(req.body.more.infos)
     const service = new Service({
         name: req.body.name,
         description: req.body.description,
-        image: req.body.image
+        image: req.body.image,
+        what: req.body.what,
+        who: req.body.who,
+        more: req.body.more
     })
 
     try {
@@ -45,7 +56,7 @@ exports.createNewService = async (req, res, next) => {
 
 
 exports.updateNewService = (req, res, next) => {
-    const services = Service.find();
+    const services = Service.updateOne();
     console.log(services)
 
     return res.status(200).json({

@@ -1,32 +1,36 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const destnationSchema = new mongoose.Schema({
+const destnationSchema = new mongoose.Schema(
+  {
     desitantion: {
-        type: String, trim: true
-
+      type: String,
+      trim: true,
     },
     desc: {
-        type: String
+      type: String,
     },
     whyDestination: [
-        {
-            title: {
-                type: String,
-                trim: true
+      {
+        title: {
+          type: String,
+          trim: true,
+        },
+        ans: [
+          {
+            ansTitle: {
+              type: String,
             },
-            ans: [
-                {
-                    ansTitle: {
-                        type: String
-                    },
-                    ansDesc: {
-                        type: String
-                    }
-                }
-            ]
-        }
-    ]
-})
+            ansDesc: {
+              type: String,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  { versionKey: false }
+).set("toJSON", {
+  virtuals: true,
+});
 
-
-module.exports = mongoose.model("Destination", destnationSchema)
+module.exports = mongoose.model("Destination", destnationSchema);

@@ -27,8 +27,6 @@ router.put("/:id", updateNewEvent);
 // deleting one
 router.delete("/:id", deleteEvent);
 
-router.post("/admin/Event", (req, res) => {
-  res.send("done ");
-});
+router.post("/admin/event", createNewEvent);
 
 module.exports = router;
