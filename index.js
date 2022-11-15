@@ -15,7 +15,7 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 
 const conectDatabase = require("./config/databaseConfig");
-const AuthenticateToken = require("./middleware/auth");
+const {AuthenticateToken} = require("./middleware/auth");
 
 const serviceRoute = require("./router/servicesRoutes");
 const destinationRoute = require("./router/destinationRoutes");
@@ -98,9 +98,29 @@ app.get("/version", (req, res)=>{
 })
 app.use("/kothar/testimonials", testimonialRoute);
 
-// app.get("/kothar/admin/check", AuthenticateToken, (req, res) => {
-//   res.send("admin pannel");
-// });
+// admin 
+
+app.use("/admin/login", authRoutes);
+
+app.use("/admin/services",AuthenticateToken, serviceRoute);
+app.use("/admin/destinations",AuthenticateToken, destinationRoute);
+app.use("/admin/events", AuthenticateToken,eventRouet);
+app.use("/admin/universities",AuthenticateToken, uniRoutes);
+
+app.get("/kothar/news", cors(), (req, res) => {
+  console.log("news called..");
+  res.send(newsData).json();
+});
+
+app.get("/version", (req, res)=>{
+  res.sendFile('./stat')
+})
+app.use("/kothar/testimonials", testimonialRoute);
+
+
+app.get("/kothar/admin/check", AuthenticateToken, (req, res) => {
+  res.send("admin pannel access aproved");
+});
 
 app.post("/kothar/send-message", (req, res) => {
   console.log("send msg ...");
