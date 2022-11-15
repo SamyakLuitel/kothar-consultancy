@@ -6,7 +6,7 @@ const {
   createNewService,
   updateNewService,
   deleteService,
-} = require("../controller/serviceController");
+} = require("../controller/imageUploadController");
 
 //  services api
 

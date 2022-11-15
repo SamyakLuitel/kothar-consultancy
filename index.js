@@ -24,10 +24,25 @@ const testimonialRoute = require("./router/testimonialRoutes");
 const uniRoutes = require("./router/testimonialRoutes");
 const authRoutes = require("./router/authRoutes");
 
+// image upload
+
+// const multer = require('multer')
+
+// const storage = multer.diskStorage({
+//   destination:(req, file, cb) =>{
+//     cb(null,'images')
+//   },
+//   filename:
+// }); 
+// const uppload  = multer({storage:})
+
+const morgan = require("morgan")
+
 const PORT = 3000;
 
 const app = express();
 
+app.use(morgan())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -78,6 +93,9 @@ app.get("/kothar/news", cors(), (req, res) => {
   res.send(newsData).json();
 });
 
+app.get("/version", (req, res)=>{
+  res.sendFile('./stat')
+})
 app.use("/kothar/testimonials", testimonialRoute);
 
 // app.get("/kothar/admin/check", AuthenticateToken, (req, res) => {

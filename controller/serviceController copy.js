@@ -20,12 +20,14 @@ exports.findAllService = async (req, res, next) => {
 }
 
 
-exports.findOneService = (req, res, next) => {
-    const services = Service.find();
-    console.log(services)
+exports.findOneService = async (req, res, next) => {
+    var id = req.params.id; // $_GET["id"]
+    console.log(id)
+    const service = await Service.findById(id);
+    console.log(service)
 
     return res.status(200).json({
-        done: "one"
+        service
     });
 }
 
@@ -55,22 +57,35 @@ exports.createNewService = async (req, res, next) => {
 
 
 
-exports.updateNewService = (req, res, next) => {
-    const services = Service.updateOne();
-    console.log(services)
+exports.updateNewService = async (req, res, next) => {
+    console.log("Update service called")
+    var id = req.params.id; // $_GET["id"]
+    const serviceUpdate = {
+        name: req.body.name,
+        description: req.body.description,
+        image: req.body.image,
+        what: req.body.what,
+        who: req.body.who,
+        more: req.body.more
+    }
+    const serviceUpdated = await Service.findByIdAndUpdate(id, serviceUpdate );
+    console.log(serviceUpdated)
 
     return res.status(200).json({
-        done: "iupdate "
+        serviceUpdated
     });
 }
 
 
-exports.deleteService = (req, res, next) => {
-    const services = Service.find();
+exports.deleteService = async  (req, res, next) => {
+    console.log("delete service called")
+    var id = req.params.id; // $_GET["id"]
+    const services = await  Service.findByIdAndDelete(id);
     console.log(services)
 
     return res.status(200).json({
-        done: "delete"
+        message: "deleted sucessfully", 
+        success: true
     });
 }
 
