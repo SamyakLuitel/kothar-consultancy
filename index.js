@@ -102,10 +102,10 @@ app.use("/kothar/testimonials", testimonialRoute);
 
 app.use("/admin/login", authRoutes);
 
-app.use("/admin/services",AuthenticateToken, serviceRoute);
-app.use("/admin/destinations",AuthenticateToken, destinationRoute);
-app.use("/admin/events", AuthenticateToken,eventRouet);
-app.use("/admin/universities",AuthenticateToken, uniRoutes);
+app.use("/kothar/admin/services",AuthenticateToken, serviceRoute);
+app.use("/kothar/admin/destinations",AuthenticateToken, destinationRoute);
+app.use("/kothar/admin/events", AuthenticateToken,eventRouet);
+app.use("/kothar/admin/universities",AuthenticateToken, uniRoutes);
 
 app.get("/kothar/news", cors(), (req, res) => {
   console.log("news called..");
