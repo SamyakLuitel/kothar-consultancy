@@ -101,6 +101,8 @@ app.use("/kothar/testimonials", testimonialRoute);
 // admin 
 
 app.use("/kothar/admin/login", authRoutes);
+app.use("/kothar/login", authRoutes);
+
 
 app.use("/kothar/admin/services",AuthenticateToken, serviceRoute);
 app.use("/kothar/admin/destinations",AuthenticateToken, destinationRoute);
