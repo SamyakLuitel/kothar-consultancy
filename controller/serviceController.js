@@ -38,8 +38,8 @@ exports.createNewService = async (req, res, next) => {
     console.log(req.body)
     console.log(req.body.more.infos)
     const service = new Service({
-        name: req.body.name,
-        description: req.body.description,
+        serviceName: req.body.name,
+        descripttion: req.body.description,
         image: req.body.image,
         what: req.body.what,
         who: req.body.who,
@@ -81,7 +81,7 @@ exports.deleteService = async  (req, res, next) => {
     console.log("delete service called")
     var id = req.params.id; // $_GET["id"]
     const services = await  Service.findByIdAndDelete(id);
-    console.log(services)
+    console.log(id)
 
     return res.status(200).json({
         message: "service deleted sucessfully", 

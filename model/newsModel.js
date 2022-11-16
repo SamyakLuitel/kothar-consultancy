@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const newsSchema = new mongoose.Schema(
   {
     date: {
-      type: date,
+      type: Date,
     },
     topic: {
       type: String,

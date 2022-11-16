@@ -25,4 +25,4 @@ const appointmentSchema = new mongoose.Schema(
   virtuals: true,
 });
 
-modeule.exports = mongoose.model("Appointment", appointmentSchema);
+module.exports = mongoose.model("Appointment", appointmentSchema);

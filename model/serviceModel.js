@@ -6,7 +6,7 @@ const serviceModel = new mongoose.Schema(
       type: String,
       reqiuired: true,
     },
-    description: {
+    descripttion: {
       type: String,
       required: true,
     },
@@ -20,7 +20,7 @@ const serviceModel = new mongoose.Schema(
       },
     },
     who: {
-      title: {
+      titlle: {
         type: String,
       },
       desc: {

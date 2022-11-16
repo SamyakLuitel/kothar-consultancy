@@ -4,9 +4,14 @@ const Event = require("../model/eventModel");
 
 exports.findAllEvent = async (req, res, next) => {
   try {
-    const event = await Event.find();
+    const eventData = await Event.find();
     console.log("find all");
-    res.json(event);
+    const allEvent = {
+      events: eventData,
+      success: true,
+      message: "data fetched",
+    };
+    res.json(allEvent);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -35,12 +40,15 @@ exports.createNewEvent = async (req, res, next) => {
     eventDate.getFullYear(),
   ];
 
-
   const event = new Event({
     name: req.body.name,
     description: req.body.description,
     image: req.body.image,
+    location: req.body.location,
+    topic: req.body.topic,
+    image: req.body.image,
     startTime: eventDate,
+    endTime: eventDate,
     date: eventDate,
     day: eventDay,
     month: eventMonth,

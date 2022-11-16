@@ -4,8 +4,15 @@ const Testimonial = require("../model/testimonialModel");
 
 exports.findAllTestimonial = async (req, res, next) => {
   try {
-    const testimonial = await Testimonial.find();
+    const testimonialData = await Testimonial.find();
     console.log("find all");
+    const testimonial = {
+      testimonials: {
+        data: testimonialData,
+      },
+      success: true,
+      message: "data fetched",
+    };
     res.json(testimonial);
   } catch (err) {
     console.log(err);

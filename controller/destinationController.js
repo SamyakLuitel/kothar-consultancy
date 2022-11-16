@@ -4,9 +4,15 @@ const Destination = require("../model/destinationModel");
 
 exports.findAllDestination = async (req, res, next) => {
   try {
-    const destination = await Destination.find();
+    const destinationData = await Destination.find();
     console.log("find all");
-    res.json(destination);
+
+    const allDest = {
+      destinations: destinationData,
+      success: true,
+      message: "data fetched",
+    };
+    res.json(allDest);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
