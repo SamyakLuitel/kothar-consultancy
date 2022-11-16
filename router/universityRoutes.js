@@ -9,17 +9,14 @@ const {
 } = require("../controller/universityController");
 
 //  university api
-router.get("/", (req, res) => {
-  res.send("done");
-});
 
-// //get all
+//get all
 router.get("/def", findAllUniversity);
 
-// //get one
+//get one
 router.get("/:id", findOneUniversity);
 
-// //creating one
+//creating one
 router.post("/", createNewUniversity);
 
 // updating one

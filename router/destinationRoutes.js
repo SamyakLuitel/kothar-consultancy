@@ -9,9 +9,6 @@ const {
 } = require("../controller/destinationController");
 
 //  findAllDestinations api
-router.get("/", (req, res) => {
-  res.send("done");
-});
 
 // get all
 router.get("/", findAllDestination);

@@ -9,21 +9,18 @@ const {
 } = require("../controller/eventController");
 
 //  Events api
-router.get("/", (req, res) => {
-  res.send("done");
-});
-
 // //get all
-router.get("/def", findAllEvent);
+router.get("/", findAllEvent);
 
-// //get one
+//get one
 router.get("/:id", findOneEvent);
 
-// //creating one
+//creating one
 router.post("/", createNewEvent);
 
 // updating one
 router.put("/:id", updateNewEvent);
+
 // deleting one
 router.delete("/:id", deleteEvent);
 

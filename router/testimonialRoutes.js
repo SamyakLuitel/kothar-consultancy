@@ -9,12 +9,9 @@ const {
 } = require("../controller/testimonialController");
 
 //  Testimonials api
-router.get("/", (req, res) => {
-  res.send("done");
-});
 
 // //get all
-router.get("/def", findAllTestimonial);
+router.get("/", findAllTestimonial);
 
 // //get one
 router.get("/:id", findOneTestimonial);
