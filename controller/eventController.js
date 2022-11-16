@@ -60,7 +60,7 @@ exports.updateNewEvent = async (req, res, next) => {
 
 exports.deleteEvent = async (req, res, next) => {
   console.log("Delete event called");
-  var id = req.params.id
+  var id = req.params.id;
   const event = await Event.findByIdAndDelete(id);
   console.log(event);
 
