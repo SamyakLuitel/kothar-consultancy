@@ -25,15 +25,30 @@ exports.findOneEvent = async (req, res, next) => {
 
 exports.createNewEvent = async (req, res, next) => {
   console.log("Creating new Event");
-  const Event = new Event({
+  let eventDate = new Date();
+
+  let dateStr = eventDate.toString().split(" ");
+
+  const [eventMonth, eventDay, eventYear] = [
+    eventDate.getMonth(),
+    eventDate.getDate(),
+    eventDate.getFullYear(),
+  ];
+
+
+  const event = new Event({
     name: req.body.name,
     description: req.body.description,
     image: req.body.image,
-    date: new Date.now(),
+    startTime: eventDate,
+    date: eventDate,
+    day: eventDay,
+    month: eventMonth,
+    year: eventYear,
   });
 
   try {
-    const newevent = await Event.save();
+    const newevent = await event.save();
     res.status(201).json(newevent);
   } catch (err) {
     console.log(err);

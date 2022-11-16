@@ -25,14 +25,14 @@ exports.findOneuniversity = async (req, res, next) => {
 
 exports.createNewuniversity = async (req, res, next) => {
   console.log("Creating new University");
-  const University = new University({
+  const university = new University({
     name: req.body.name,
     description: req.body.description,
     image: req.body.image,
   });
 
   try {
-    const newuniversity = await University.save();
+    const newuniversity = await university.save();
     res.status(201).json(newuniversity);
   } catch (err) {
     console.log(err);

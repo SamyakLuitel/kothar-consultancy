@@ -24,4 +24,4 @@ const tesimonialsSchema = new mongoose.Schema(
   virtuals: true,
 });
 
-module.export = mongoose.model("Testimonal", tesimonialsSchema);
+module.exports = mongoose.model("Testimonal", tesimonialsSchema);

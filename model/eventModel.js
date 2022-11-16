@@ -17,7 +17,6 @@ const eventSchema = new mongoose.Schema(
     },
     endTime: {
       type: Date,
-      required: true,
     },
     date: {
       type: Date,
@@ -44,4 +43,4 @@ const eventSchema = new mongoose.Schema(
   virtuals: true,
 });
 
-module.export = mongoose.model("Event", eventSchema);
+module.exports = mongoose.model("Event", eventSchema);

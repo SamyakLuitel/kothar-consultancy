@@ -31,7 +31,7 @@ exports.createNewTestimonial = async (req, res, next) => {
   });
 
   try {
-    const newTestimonial = await Testimonial.save();
+    const newTestimonial = await testimonial.save();
     res.status(201).json(newTestimonial);
   } catch (err) {
     console.log(err);

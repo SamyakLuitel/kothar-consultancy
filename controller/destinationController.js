@@ -25,14 +25,14 @@ exports.findOneDestination = async (req, res, next) => {
 
 exports.createNewDestination = async (req, res, next) => {
   console.log("Creating new Destination");
-  const Destination = new Destination({
+  const destination = new Destination({
     name: req.body.name,
     description: req.body.description,
     image: req.body.image,
   });
 
   try {
-    const newDestination = await Destination.save();
+    const newDestination = await destination.save();
     res.status(201).json(newDestination);
   } catch (err) {
     console.log(err);
