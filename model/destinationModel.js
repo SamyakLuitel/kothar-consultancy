@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
-const destnationSchema = new mongoose.Schema(
+const destinationSchema = new mongoose.Schema(
   {
-    desitantion: {
+    destination: {
       type: String,
       trim: true,
     },
-    desc: {
+    destinationDesc: {
       type: String,
     },
     whyDestination: [
@@ -17,10 +17,10 @@ const destnationSchema = new mongoose.Schema(
         },
         ans: [
           {
-            ansTitle: {
+            title: {
               type: String,
             },
-            ansDesc: {
+            desc: {
               type: String,
             },
           },
@@ -33,4 +33,4 @@ const destnationSchema = new mongoose.Schema(
   virtuals: true,
 });
 
-module.exports = mongoose.model("Destination", destnationSchema);
+module.exports = mongoose.model("Destination", destinationSchema);

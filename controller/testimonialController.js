@@ -13,12 +13,12 @@ exports.findAllTestimonial = async (req, res, next) => {
   }
 };
 
-exports.findOneTestimonial = (req, res, next) => {
-  const testimonial = Testimonial.find();
+exports.findOneTestimonial = async (req, res, next) => {
+  var id = req.body.id;
+  const testimonial = await Testimonial.findById(id);
   console.log(testimonial);
-
   return res.status(200).json({
-    done: "one",
+    testimonial,
   });
 };
 
@@ -40,19 +40,29 @@ exports.createNewTestimonial = async (req, res, next) => {
 };
 
 exports.updateTestimonial = (req, res, next) => {
-  const testimonial = Testimonial.find();
-  console.log(testimonial);
+  var id = req.params.id;
+  const testimonialUpdate = {
+    name: req.body.name,
+    description: req.body.description,
+    image: req.body.image,
+  };
 
+  const testimonalUpdated = Testimonial.findByIdAndUpdate(
+    id,
+    testimonialUpdate
+  );
   return res.status(200).json({
-    done: "update ",
+    testimonalUpdated,
   });
 };
 
-exports.deleteTestimonial = (req, res, next) => {
-  const Testimonial = Testimonial.find();
+exports.deleteTestimonial = async (req, res, next) => {
+  var id = req.params.id;
+  const Testimonial = await Testimonial.findByIdAndDelete(id);
   console.log(Testimonial);
 
   return res.status(200).json({
-    done: "delete",
+    message: "testimonial  deleted sucessfully",
+    success: true,
   });
 };

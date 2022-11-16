@@ -1,65 +1,71 @@
-const Event = require("../model/eventModel")
+const Event = require("../model/eventModel");
 
-//event controller 
+//event controller
 
 exports.findAllEvent = async (req, res, next) => {
-    try {
-        const event = await Event.find();
-        console.log("find all")
-        res.json(event)
-    } catch (err) {
-        console.log(err)
-        res.status(500).json({ message: err.message })
-    }
-}
+  try {
+    const event = await Event.find();
+    console.log("find all");
+    res.json(event);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message });
+  }
+};
 
+exports.findOneEvent = async (req, res, next) => {
+  var id = req.params.id;
+  const event = await Event.findById(id);
+  console.log(event);
 
-exports.findOneEvent = (req, res, next) => {
-    const event = Event.find();
-    console.log(event)
-
-    return res.status(200).json({
-        done: "one"
-    });
-}
-
-
+  return res.status(200).json({
+    event,
+  });
+};
 
 exports.createNewEvent = async (req, res, next) => {
-    console.log("Creating new Event")
-    const Event = new Event({
-        name: req.body.name,
-        description: req.body.description,
-        image: req.body.image
-    })
+  console.log("Creating new Event");
+  const Event = new Event({
+    name: req.body.name,
+    description: req.body.description,
+    image: req.body.image,
+    date: new Date.now(),
+  });
 
-    try {
-        const newevent = await Event.save()
-        res.status(201).json(newevent);
-    } catch (err) {
-        console.log(err)
-        res.status(500).json({ message: err.message })
-    }
-}
+  try {
+    const newevent = await Event.save();
+    res.status(201).json(newevent);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message });
+  }
+};
 
+exports.updateNewEvent = async (req, res, next) => {
+  var id = req.params.id;
 
+  const eventUpdate = {
+    name: req.body.name,
+    description: req.body.description,
+    image: req.body.image,
+    date: new Date.now(),
+  };
 
-exports.updateNewEvent = (req, res, next) => {
-    const event = Event.find();
-    console.log(event)
+  const eventUpdated = await Event.findByIdAndUpdate(id, eventUpdate);
 
-    return res.status(200).json({
-        done: "update "
-    });
-}
+  return res.status(200).json({
+    eventUpdated,
+  });
+};
 
+exports.deleteEvent = async (req, res, next) => {
+  console.log("Delete event called");
+  var id = req.params.id
+  const event = await Event.findByIdAndDelete(id);
+  console.log(event);
 
-exports.deleteEvent = (req, res, next) => {
-    const event = Event.find();
-    console.log(event)
-
-    return res.status(200).json({
-        done: "delete"
-    });
-}
-
+  return res.status(200).json({
+    message: "event deleted sucessfully",
+    success: true,
+  });
+};

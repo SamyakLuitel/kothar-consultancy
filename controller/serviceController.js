@@ -84,7 +84,7 @@ exports.deleteService = async  (req, res, next) => {
     console.log(services)
 
     return res.status(200).json({
-        message: "deleted sucessfully", 
+        message: "service deleted sucessfully", 
         success: true
     });
 }

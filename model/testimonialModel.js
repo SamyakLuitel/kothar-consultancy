@@ -14,7 +14,7 @@ const tesimonialsSchema = new mongoose.Schema(
       type: String,
       required: [true, "please enter image url"],
     },
-    createdAr: {
+    createdAt: {
       type: Date,
       default: Date.now,
     },

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const serviceModel = new mongoose.Schema(
   {
-    name: {
+    serviceName: {
       type: String,
       reqiuired: true,
     },

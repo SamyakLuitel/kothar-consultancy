@@ -13,12 +13,13 @@ exports.findAlluniversity = async (req, res, next) => {
   }
 };
 
-exports.findOneuniversity = (req, res, next) => {
-  const university = University.find();
+exports.findOneuniversity = async (req, res, next) => {
+  var id = req.body.id;
+  const university = await University.findById(id);
   console.log(university);
 
   return res.status(200).json({
-    done: "one",
+    university,
   });
 };
 
@@ -39,20 +40,27 @@ exports.createNewuniversity = async (req, res, next) => {
   }
 };
 
-exports.updateNewuniversity = (req, res, next) => {
-  const university = University.find();
-  console.log(university);
+exports.updateNewuniversity = async (req, res, next) => {
+  var id = req.params.id;
 
+  const uniUpdate = {
+    name: req.body.name,
+    description: req.body.description,
+    image: req.body.image,
+  };
+
+  const uniUpdated = await University.findByIdAndUpdate(id, uniUpdate);
   return res.status(200).json({
-    done: "update ",
+    uniUpdated,
   });
 };
 
-exports.deleteuniversity = (req, res, next) => {
-  const university = University.find();
-  console.log(university);
+exports.deleteuniversity = async (req, res, next) => {
+  var id = req.params.id;
+  const university = await University.findByIdAndDelete(id);
 
   return res.status(200).json({
-    done: "delete",
+    message: "university deleted sucessfully",
+    success: true,
   });
 };
