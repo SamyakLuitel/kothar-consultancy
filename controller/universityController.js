@@ -2,7 +2,7 @@ const University = require("../model/uniModel");
 
 //university controller
 
-exports.findAlluniversity = async (req, res, next) => {
+exports.findAllUniversity = async (req, res, next) => {
   try {
     const university = await University.find();
     console.log("find all");
@@ -13,17 +13,16 @@ exports.findAlluniversity = async (req, res, next) => {
   }
 };
 
-exports.findOneuniversity = async (req, res, next) => {
+exports.findOneUniversity = async (req, res, next) => {
   var id = req.body.id;
   const university = await University.findById(id);
   console.log(university);
-
   return res.status(200).json({
     university,
   });
 };
 
-exports.createNewuniversity = async (req, res, next) => {
+exports.createNewUniversity = async (req, res, next) => {
   console.log("Creating new University");
   const university = new University({
     name: req.body.name,
@@ -40,7 +39,7 @@ exports.createNewuniversity = async (req, res, next) => {
   }
 };
 
-exports.updateNewuniversity = async (req, res, next) => {
+exports.updateNewUniversity = async (req, res, next) => {
   var id = req.params.id;
 
   const uniUpdate = {
@@ -55,7 +54,7 @@ exports.updateNewuniversity = async (req, res, next) => {
   });
 };
 
-exports.deleteuniversity = async (req, res, next) => {
+exports.deleteUniversity = async (req, res, next) => {
   var id = req.params.id;
   const university = await University.findByIdAndDelete(id);
 

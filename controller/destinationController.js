@@ -32,9 +32,11 @@ exports.findOneDestination = async (req, res, next) => {
 exports.createNewDestination = async (req, res, next) => {
   console.log("Creating new Destination");
   const destination = new Destination({
-    name: req.body.name,
-    description: req.body.description,
+    destination: req.body.destination,
+    destinationDesc: req.body.destinationDesc,
     image: req.body.image,
+    whyDestination: req.body.whyDestination,
+    ans: req.body.ans,
   });
 
   try {
@@ -50,18 +52,28 @@ exports.updateDestination = async (req, res, next) => {
   var id = req.params.id;
 
   const destinationUpdate = {
-    name: req.body.name,
-    description: req.body.description,
+    destination: req.body.destination,
+    destinationDesc: req.body.destinationDesc,
     image: req.body.image,
+    whyDestination: req.body.whyDestination,
+    ans: req.body.ans,
   };
-
-  const destinationUpdated = await Destination.findByIdAndUpdate(
-    id,
-    destinationUpdate
-  );
-  return res.status(200).json({
-    destinationUpdated,
-  });
+  try {
+    const destinationUpdated = await Destination.findByIdAndUpdate(
+      id,
+      destinationUpdate
+    );
+    return res.status(200).json({
+      message: "Service updated successfully",
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
 };
 
 exports.deleteDestination = async (req, res, next) => {

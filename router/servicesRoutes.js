@@ -8,15 +8,15 @@ const {
   deleteService,
 } = require("../controller/serviceController");
 
-//  services api
+// services api
 
-// //get all
+// get all
 router.get("/", findAllService);
 
-// //get one
+// get one
 router.get("/:id", findOneService);
 
-// //creating one
+// creating one
 router.post("/", createNewService);
 
 // updating one

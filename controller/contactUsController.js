@@ -26,7 +26,7 @@ exports.sendEmail = async (req, res, next) => {
   });
 
   return res.json({
-    message: "Your meaasge has been submitted to KOTHAR",
+    message: "Your meaasge has been submitted to KOTHAR Education",
     success: true,
   });
 };

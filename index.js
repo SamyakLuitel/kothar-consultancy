@@ -13,7 +13,7 @@ const serviceRoute = require("./router/servicesRoutes");
 const destinationRoute = require("./router/destinationRoutes");
 const eventRouet = require("./router/eventRoutes");
 const testimonialRoute = require("./router/testimonialRoutes");
-const uniRoutes = require("./router/testimonialRoutes");
+const uniRoutes = require("./router/universityRoutes");
 const authRoutes = require("./router/authRoutes");
 
 const contactUsRoutes = require("./router/contactUsRoutes");
@@ -75,61 +75,32 @@ app.get("/version", cors(), (req, res) => {
   res.send("Kothar institute [v1]");
 });
 
-app.use("/kothar/services", serviceRoute);
+
+//public 
 app.use("/login", authRoutes);
+app.use("/kothar/services", serviceRoute);
 app.use("/kothar/destinations", destinationRoute);
 app.use("/kothar/events", eventRouet);
-app.use("/kothar/universities", uniRoutes);
-app.use("kothar/news", newsRoutes);
-
-// app.get("/kothar/news", cors(), (req, res) => {
-//   console.log("news called..");
-//   res.send(newsData).json();
-// });
-
-app.get("/version", (req, res) => {
-  res.sendFile("./stat");
-});
+app.use("/kothar/universities", uniRoutes); 
+app.use("/kothar/news", newsRoutes);
 app.use("/kothar/testimonials", testimonialRoute);
+app.use("/kothar/book-appointment", appointmentRoutes);
+app.use("/kothar/send-message", contactUsRoutes);
+
 
 // admin
-
 app.use("/kothar/admin/login", authRoutes);
 app.use("/kothar/login", authRoutes);
-
 app.use("/kothar/admin/services", AuthenticateToken, serviceRoute);
 app.use("/kothar/admin/destinations", AuthenticateToken, destinationRoute);
 app.use("/kothar/admin/events", AuthenticateToken, eventRouet);
 app.use("/kothar/admin/universities", AuthenticateToken, uniRoutes);
+app.use("/kothar/admin/testimonials", AuthenticateToken, testimonialRoute);
+app.use("/kothar/admin/news", AuthenticateToken, newsRoutes);
+app.use("/kothar/admin/book-appointment",AuthenticateToken,appointmentRoutes)
+app.use("/kothar/admin/send-message",AuthenticateToken, contactUsRoutes)
 
-app.get("/kothar/news", cors(), (req, res) => {
-  console.log("news called..");
-  res.send(newsData).json();
-});
-
-app.get("/version", (req, res) => {
-  res.sendFile("./stat");
-});
-app.use("/kothar/testimonials", testimonialRoute);
 
 app.get("/kothar/admin/check", AuthenticateToken, (req, res) => {
-  res.send("admin pannel access aproved");
+  res.send("admin pannel access approved");
 });
-
-app.use("/kothar/send-message", contactUsRoutes);
-// app.post("/kothar/send-message", (req, res) => {
-//   console.log("send msg ...");
-//   res.json({
-//     message: "Your meaasge has been submitted to KOTHAR",
-//     success: true,
-//   });
-// });
-
-app.use("/kothar/book-appointment", appointmentRoutes);
-// app.post("/kothar/book-appointment", (req, res) => {
-//   console.log("book appointment ...");
-//   res.json({
-//     message: "Your appoint booking is sucessful",
-//     success: true,
-//   });
-// });

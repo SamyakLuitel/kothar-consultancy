@@ -6,7 +6,9 @@ const uniSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Destination",
     },
-    image: { type: String },
+    image: {
+      type: String,
+    },
     website: {
       type: String,
     },
@@ -16,4 +18,4 @@ const uniSchema = new mongoose.Schema(
   virtuals: true,
 });
 
-module.exports = mongoose.Schema("University", uniSchema);
+module.exports = mongoose.model("University", uniSchema);
