@@ -3,9 +3,14 @@ const Appointment = require("../model/appointmentModel");
 
 exports.findAllAppiontment = async (req, res, next) => {
   try {
-    const allAppointment = await Service.find();
+    const allAppointment = await Appointment.find();
     console.log("find all appointment ");
-    res.json(allAppointment);
+    const response = {
+      appointments:allAppointment, 
+      message:"appointments fetched", 
+      success:true
+    }
+    res.json(response);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -23,12 +28,12 @@ exports.findOneAppointment = async (Req, res, next) => {
   });
 };
 
-exports.createNewAppointment = async (Req, res, next) => {
+exports.createNewAppointment = async (req, res, next) => {
   console.log("creating new appointment");
   const appointment = new Appointment({
     enquiryType: req.body.enquiryType,
     name: req.body.name,
-    email: req.body.emal,
+    email: req.body.email,
     enquiry: req.body.enquiry,
     requestedDate: new Date(),
   });

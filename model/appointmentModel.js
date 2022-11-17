@@ -10,7 +10,6 @@ const appointmentSchema = new mongoose.Schema(
     },
     email: {
       type: mongoose.SchemaTypes.Email,
-      trim: true,
       required: true,
     },
     enquiry: {
