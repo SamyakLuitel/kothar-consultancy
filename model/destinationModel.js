@@ -9,24 +9,22 @@ const destinationSchema = new mongoose.Schema(
     destinationDesc: {
       type: String,
     },
-    whyDestination: [
-      {
-        title: {
-          type: String,
-          trim: true,
-        },
-        ans: [
-          {
-            title: {
-              type: String,
-            },
-            desc: {
-              type: String,
-            },
-          },
-        ],
+    whyDestination: {
+      title: {
+        type: String,
+        trim: true,
       },
-    ],
+      ans: [
+        {
+          title: {
+            type: String,
+          },
+          desc: {
+            type: String,
+          },
+        },
+      ],
+    },
   },
   { versionKey: false }
 ).set("toJSON", {
