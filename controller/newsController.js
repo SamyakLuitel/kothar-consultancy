@@ -53,7 +53,7 @@ exports.updatedNews = async (req, res, next) => {
     image: req.body.image,
   };
 
-  const newsUpdated = new News.findByIdAndUpdate(id, newsUpdate);
+  const newsUpdated = await News.findByIdAndUpdate(id, newsUpdate);
   console.log(newsUpdated);
 
   return res.status(200).json({

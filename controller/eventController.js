@@ -40,6 +40,9 @@ exports.createNewEvent = async (req, res, next) => {
     eventDate.getFullYear(),
   ];
 
+  console.log(eventDate);
+  console.log(eventMonth);
+
   const event = new Event({
     name: req.body.name,
     description: req.body.description,
@@ -47,11 +50,11 @@ exports.createNewEvent = async (req, res, next) => {
     location: req.body.location,
     topic: req.body.topic,
     image: req.body.image,
-    startTime: eventDate,
-    endTime: eventDate,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
     date: eventDate,
     day: eventDay,
-    month: eventMonth,
+    month: eventMonth + 1,
     year: eventYear,
   });
 

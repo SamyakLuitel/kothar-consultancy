@@ -10,8 +10,8 @@ const {
 
 router.get("/", findAllNews);
 router.get("/:id", findOneNews);
-router.put("/", updatedNews);
-router.put("/:id", createNews);
+router.post("/", createNews);
+router.put("/:id", updatedNews);
 router.delete("/", deleteNews);
 
 module.exports = router;
