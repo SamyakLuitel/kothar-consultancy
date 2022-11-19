@@ -91,7 +91,7 @@ exports.deleteEvent = async (req, res, next) => {
   console.log(event);
 
   return res.status(200).json({
-    message: "event deleted sucessfully",
+    message: "event deleted successfully",
     success: true,
   });
 };

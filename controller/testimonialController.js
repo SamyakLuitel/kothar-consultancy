@@ -69,7 +69,7 @@ exports.deleteTestimonial = async (req, res, next) => {
   console.log(Testimonial);
 
   return res.status(200).json({
-    message: "testimonial  deleted sucessfully",
+    message: "testimonial  deleted successfully",
     success: true,
   });
 };

@@ -5,10 +5,10 @@ exports.findAllNews = async (req, res, next) => {
     const allNewsData = await News.find();
     console.log("find all news");
     const allNews = {
-        news:allNewsData, 
-        success:true, 
-        message:"data fetched"
-    }
+      news: allNewsData,
+      success: true,
+      message: "data fetched",
+    };
     res.json(allNews);
   } catch (err) {
     console.log(err);
@@ -37,7 +37,12 @@ exports.createNews = async (req, res, next) => {
 
   try {
     const newNews = await news.save();
-    res.status(201).json(newNews);
+    const createResponse = {
+      data: newNews,
+      message: "News added Successfully",
+      success: true,
+    };
+    res.status(201).json(createResponse);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -46,29 +51,42 @@ exports.createNews = async (req, res, next) => {
 
 exports.updatedNews = async (req, res, next) => {
   console.log("Update news called ");
-  var id = req.params.id;
-  const newsUpdate = {
-    date: new Date(),
-    topic: req.body.topic,
-    image: req.body.image,
-  };
+  try {
+    var id = req.params.id;
+    const newsUpdate = {
+      date: new Date(),
+      topic: req.body.topic,
+      image: req.body.image,
+    };
 
-  const newsUpdated = await News.findByIdAndUpdate(id, newsUpdate);
-  console.log(newsUpdated);
+    const newsUpdated = await News.findByIdAndUpdate(id, newsUpdate);
+    console.log(newsUpdated);
 
-  return res.status(200).json({
-    newsUpdate,
-  });
+    return res.status(200).json({
+      message: "News updated successfully",
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message, success: false });
+  }
 };
 
 exports.deleteNews = async (req, res, next) => {
   console.log("delete news called ");
-  var id = req.params.id;
-  const news = await News.findByIdAndDelete(id);
-  console.log(id);
+  try {
+    var id = req.params.id;
+    const news = await News.findByIdAndDelete(id);
+    console.log(id);
 
-  return res.status(200).json({
-    message: "service deleted sucessfully",
-    success: true,
-  });
+    return res.status(200).json({
+      message: "News deleted successfully",
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message:err.message, success:false
+    })
+  }
 };

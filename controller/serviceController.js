@@ -87,7 +87,7 @@ exports.deleteService = async (req, res, next) => {
   const services = await Service.findByIdAndDelete(id);
 
   return res.status(200).json({
-    message: "service deleted sucessfully",
+    message: "service deleted successfully",
     success: true,
   });
 };

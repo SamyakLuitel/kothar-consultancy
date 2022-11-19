@@ -83,7 +83,7 @@ exports.deleteDestination = async (req, res, next) => {
   console.log(destination);
 
   return res.status(200).json({
-    message: "destination deleted sucessfully",
+    message: "destination deleted successfully",
     success: true,
   });
 };

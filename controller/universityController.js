@@ -59,7 +59,7 @@ exports.deleteUniversity = async (req, res, next) => {
   const university = await University.findByIdAndDelete(id);
 
   return res.status(200).json({
-    message: "university deleted sucessfully",
+    message: "university deleted successfully",
     success: true,
   });
 };
