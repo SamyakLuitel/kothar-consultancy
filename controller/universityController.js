@@ -19,7 +19,7 @@ exports.findAllUniversity = async (req, res, next) => {
 };
 
 exports.findOneUniversity = async (req, res, next) => {
-  var id = req.body.id;
+  var id = req.params.id;
   const university = await University.findById(id);
   console.log(university);
   return res.status(200).json({
@@ -31,7 +31,7 @@ exports.createNewUniversity = async (req, res, next) => {
   console.log("Creating new University");
   const university = new University({
     name: req.body.name,
-    description: req.body.description,
+    destId: req.body.destId,
     image: req.body.image,
     website: req.body.website,
   });
@@ -50,8 +50,9 @@ exports.updateNewUniversity = async (req, res, next) => {
 
   const uniUpdate = {
     name: req.body.name,
-    description: req.body.description,
+    destId: req.body.destId,
     image: req.body.image,
+    website: req.body.website,
   };
 
   const uniUpdated = await University.findByIdAndUpdate(id, uniUpdate);

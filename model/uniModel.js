@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const uniSchema = new mongoose.Schema(
   {
-    destination: {
+    destId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Destination",
     },
