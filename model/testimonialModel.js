@@ -6,11 +6,11 @@ const tesimonialsSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter name"],
     },
-    testimonial: {
+    tetimonial: {
       type: String,
       required: [true, "Please enter testimonial"],
     },
-    imageURL: {
+    image: {
       type: String,
       required: [true, "please enter image url"],
     },

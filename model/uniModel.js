@@ -9,6 +9,9 @@ const uniSchema = new mongoose.Schema(
     image: {
       type: String,
     },
+    name: {
+      type: String,
+    },
     website: {
       type: String,
     },

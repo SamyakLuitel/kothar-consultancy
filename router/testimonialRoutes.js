@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const uploader = require("../config/multerConfig");
 const {
   findAllTestimonial,
   findOneTestimonial,
@@ -17,10 +18,10 @@ router.get("/", findAllTestimonial);
 router.get("/:id", findOneTestimonial);
 
 // //creating one
-router.post("/", createNewTestimonial);
+router.post("/", uploader.single("file"), createNewTestimonial);
 
 // updating one
-router.put("/:id", updateTestimonial);
+router.put("/:id", uploader.single("file"), updateTestimonial);
 
 // deleting one
 router.delete("/:id", deleteTestimonial);

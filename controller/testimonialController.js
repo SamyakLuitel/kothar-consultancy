@@ -1,4 +1,5 @@
 const Testimonial = require("../model/testimonialModel");
+const { uploader } = require("../utils/imageUploadUtils");
 
 //Testimonial controller
 
@@ -31,15 +32,24 @@ exports.findOneTestimonial = async (req, res, next) => {
 
 exports.createNewTestimonial = async (req, res, next) => {
   console.log("Creating new Testimonial");
-  const testimonial = new Testimonial({
-    name: req.body.name,
-    description: req.body.description,
-    image: req.body.image,
-  });
 
   try {
-    const newTestimonial = await testimonial.save();
-    res.status(201).json(newTestimonial);
+    console.log(req)
+    const img = req.file.path;
+    const uploadRes = uploader(img);
+    console.log(uploadRes);
+    if ((await uploadRes).success) {
+      const testimonial = new Testimonial({
+        name: req.body.name,
+        tetimonial: req.body.tetimonial,
+        image: (await uploadRes).file,
+      });
+
+      const newTestimonial = await testimonial.save();
+      res.status(201).json(newTestimonial);
+    } else {
+      res.status(500).json({ message: uploadRes.message, success: false });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });

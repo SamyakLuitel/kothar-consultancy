@@ -1,12 +1,9 @@
 const express = require("express");
-const newsData = require("./data/newsData.json");
 const cors = require("cors");
-
-// const swaggerOptions = require("./config/swaggerConig");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 
-const conectDatabase = require("./config/databaseConfig");
+const connectDatabase = require("./config/databaseConfig");
 const { AuthenticateToken } = require("./middleware/auth");
 
 const serviceRoute = require("./router/servicesRoutes");
@@ -15,27 +12,35 @@ const eventRouet = require("./router/eventRoutes");
 const testimonialRoute = require("./router/testimonialRoutes");
 const uniRoutes = require("./router/universityRoutes");
 const authRoutes = require("./router/authRoutes");
-
 const contactUsRoutes = require("./router/contactUsRoutes");
 const appointmentRoutes = require("./router/appointmentRoutes");
 const newsRoutes = require("./router/newsRoutes");
 
 // image upload
+// const cloudinary = require("./config/cloudinaryConfig");
+// const uploader = require("./config/multerConfig");
 
-// const multer = require('multer')
+require("dotenv").config();
+const cloudinary = require("cloudinary").v2;
 
-// const storage = multer.diskStorage({
-//   destination:(req, file, cb) =>{
-//     cb(null,'images')
-//   },
-//   filename:
-// });
-// const uppload  = multer({storage:})
+const multer = require("multer");
+
+const uploader = multer({
+  storage: multer.diskStorage({}),
+  limits: { fileSize: 500000 },
+});
+// const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
+
+console.log(cloudinary.config());
 
 const morgan = require("morgan");
-
 const PORT = 3000;
-
 const app = express();
 
 app.use(morgan());
@@ -43,7 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-conectDatabase();
+connectDatabase();
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
@@ -75,18 +80,16 @@ app.get("/version", cors(), (req, res) => {
   res.send("Kothar institute [v1]");
 });
 
-
-//public 
+//public
 app.use("/login", authRoutes);
 app.use("/kothar/services", serviceRoute);
 app.use("/kothar/destinations", destinationRoute);
 app.use("/kothar/events", eventRouet);
-app.use("/kothar/universities", uniRoutes); 
+app.use("/kothar/universities", uniRoutes);
 app.use("/kothar/news", newsRoutes);
 app.use("/kothar/testimonials", testimonialRoute);
 app.use("/kothar/book-appointment", appointmentRoutes);
 app.use("/kothar/send-message", contactUsRoutes);
-
 
 // admin
 app.use("/kothar/admin/login", authRoutes);
@@ -97,10 +100,27 @@ app.use("/kothar/admin/events", AuthenticateToken, eventRouet);
 app.use("/kothar/admin/universities", AuthenticateToken, uniRoutes);
 app.use("/kothar/admin/testimonials", AuthenticateToken, testimonialRoute);
 app.use("/kothar/admin/news", AuthenticateToken, newsRoutes);
-app.use("/kothar/admin/book-appointment",AuthenticateToken,appointmentRoutes)
-app.use("/kothar/admin/send-message",AuthenticateToken, contactUsRoutes)
-
+app.use("/kothar/admin/book-appointment", AuthenticateToken, appointmentRoutes);
+app.use("/kothar/admin/send-message", AuthenticateToken, contactUsRoutes);
 
 app.get("/kothar/admin/check", AuthenticateToken, (req, res) => {
   res.send("admin pannel access approved");
+});
+
+app.post("/upload", uploader.single("file"), async (req, res) => {
+  console.log("upload called");
+  console.log(req.file.path);
+  try {
+    const upload = await cloudinary.uploader.upload(req.file.path);
+
+    console.log(upload);
+    console.log(upload.secure_url);
+    return res.json({
+      success: true,
+      file: upload.secure_url,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+  }
 });

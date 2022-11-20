@@ -11,14 +11,11 @@ const {
 //  university api
 
 //get all
-router.get("/def", findAllUniversity);
-
+router.get("/", findAllUniversity);
 //get one
 router.get("/:id", findOneUniversity);
-
 //creating one
 router.post("/", createNewUniversity);
-
 // updating one
 router.put("/:id", updateNewUniversity);
 // deleting one

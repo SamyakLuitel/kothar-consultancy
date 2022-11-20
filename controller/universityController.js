@@ -6,7 +6,12 @@ exports.findAllUniversity = async (req, res, next) => {
   try {
     const university = await University.find();
     console.log("find all");
-    res.json(university);
+    const respData = {
+      success: true,
+      message: "data fetched",
+      universities: university,
+    };
+    res.json(respData);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -28,6 +33,7 @@ exports.createNewUniversity = async (req, res, next) => {
     name: req.body.name,
     description: req.body.description,
     image: req.body.image,
+    website: req.body.website,
   });
 
   try {
