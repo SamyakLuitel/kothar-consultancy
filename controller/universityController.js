@@ -38,7 +38,12 @@ exports.createNewUniversity = async (req, res, next) => {
 
   try {
     const newuniversity = await university.save();
-    res.status(201).json(newuniversity);
+    const resData = {
+      data: newuniversity,
+      success: true,
+      message: "university data created !",
+    };
+    res.status(201).json(resData);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
@@ -56,9 +61,14 @@ exports.updateNewUniversity = async (req, res, next) => {
   };
 
   const uniUpdated = await University.findByIdAndUpdate(id, uniUpdate);
-  return res.status(200).json({
-    uniUpdated,
-  });
+
+  const resData = {
+    success: true,
+    message: "university data updated !",
+  };
+  return res.status(200).json(
+    resData,
+  );
 };
 
 exports.deleteUniversity = async (req, res, next) => {
