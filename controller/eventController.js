@@ -1,4 +1,5 @@
 const Event = require("../model/eventModel");
+const { uploader } = require("../utils/imageUploadUtils");
 
 //event controller
 
@@ -19,13 +20,21 @@ exports.findAllEvent = async (req, res, next) => {
 };
 
 exports.findOneEvent = async (req, res, next) => {
-  var id = req.params.id;
-  const event = await Event.findById(id);
-  console.log(event);
+  try {
+    var id = req.params.id;
+    const event = await Event.findById(id);
+    console.log(event);
 
-  return res.status(200).json({
-    event,
-  });
+    return res.status(200).json({
+      event,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
 };
 
 exports.createNewEvent = async (req, res, next) => {
@@ -40,25 +49,25 @@ exports.createNewEvent = async (req, res, next) => {
     eventDate.getFullYear(),
   ];
 
-  console.log(eventDate);
-  console.log(eventMonth);
-
-  const event = new Event({
-    name: req.body.name,
-    description: req.body.description,
-    image: req.body.image,
-    location: req.body.location,
-    topic: req.body.topic,
-    image: req.body.image,
-    startTime: req.body.startTime,
-    endTime: req.body.endTime,
-    date: eventDate,
-    day: eventDay,
-    month: eventMonth + 1,
-    year: eventYear,
-  });
-
   try {
+    const img = req.file.path;
+
+    const uploadRes = uploader(img);
+    const event = new Event({
+      name: req.body.name,
+      description: req.body.description,
+      image: (await uploadRes).file,
+      location: req.body.location,
+      topic: req.body.topic,
+      image: req.body.image,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime,
+      date: eventDate,
+      day: eventDay,
+      month: eventMonth + 1,
+      year: eventYear,
+    });
+
     const newevent = await event.save();
     res.status(201).json(newevent);
   } catch (err) {
@@ -85,13 +94,21 @@ exports.updateNewEvent = async (req, res, next) => {
 };
 
 exports.deleteEvent = async (req, res, next) => {
-  console.log("Delete event called");
-  var id = req.params.id;
-  const event = await Event.findByIdAndDelete(id);
-  console.log(event);
+  try {
+    console.log("Delete event called");
+    var id = req.params.id;
+    const event = await Event.findByIdAndDelete(id);
+    console.log(event);
 
-  return res.status(200).json({
-    message: "event deleted successfully",
-    success: true,
-  });
+    return res.status(200).json({
+      message: "event deleted successfully",
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
 };

@@ -22,19 +22,27 @@ exports.findAllTestimonial = async (req, res, next) => {
 };
 
 exports.findOneTestimonial = async (req, res, next) => {
-  var id = req.body.id;
-  const testimonial = await Testimonial.findById(id);
-  console.log(testimonial);
-  return res.status(200).json({
-    testimonial,
-  });
+  try {
+    var id = req.body.id;
+    const testimonial = await Testimonial.findById(id);
+    console.log(testimonial);
+    return res.status(200).json({
+      testimonial,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
 };
 
 exports.createNewTestimonial = async (req, res, next) => {
   console.log("Creating new Testimonial");
 
   try {
-    console.log(req)
+    console.log(req);
     const img = req.file.path;
     const uploadRes = uploader(img);
     console.log(uploadRes);
@@ -58,6 +66,9 @@ exports.createNewTestimonial = async (req, res, next) => {
 
 exports.updateTestimonial = (req, res, next) => {
   var id = req.params.id;
+
+  const img = req.file.path;
+
   const testimonialUpdate = {
     name: req.body.name,
     description: req.body.description,
@@ -74,12 +85,20 @@ exports.updateTestimonial = (req, res, next) => {
 };
 
 exports.deleteTestimonial = async (req, res, next) => {
-  var id = req.params.id;
-  const Testimonial = await Testimonial.findByIdAndDelete(id);
-  console.log(Testimonial);
+  try {
+    var id = req.params.id;
+    const Testimonial = await Testimonial.findByIdAndDelete(id);
+    console.log(Testimonial);
 
-  return res.status(200).json({
-    message: "testimonial  deleted successfully",
-    success: true,
-  });
+    return res.status(200).json({
+      message: "testimonial  deleted successfully",
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
 };

@@ -16,10 +16,6 @@ const contactUsRoutes = require("./router/contactUsRoutes");
 const appointmentRoutes = require("./router/appointmentRoutes");
 const newsRoutes = require("./router/newsRoutes");
 
-// image upload
-// const cloudinary = require("./config/cloudinaryConfig");
-// const uploader = require("./config/multerConfig");
-
 require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
 
@@ -29,7 +25,7 @@ const uploader = multer({
   storage: multer.diskStorage({}),
   limits: { fileSize: 500000 },
 });
-// const cloudinary = require("cloudinary").v2;
+
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -124,3 +120,9 @@ app.post("/upload", uploader.single("file"), async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+ const config = {
+  api: {
+    bodyParser: false,
+  },
+};

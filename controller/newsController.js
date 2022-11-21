@@ -1,4 +1,5 @@
 const News = require("../model/newsModel");
+const { uploader } = require("../utils/imageUploadUtils");
 
 exports.findAllNews = async (req, res, next) => {
   try {
@@ -17,25 +18,37 @@ exports.findAllNews = async (req, res, next) => {
 };
 
 exports.findOneNews = async (Req, res, next) => {
-  var id = req.params.id;
-  console.log(id);
-  const news = await News.findById(id);
-  console.log(news);
+  try {
+    var id = req.params.id;
+    console.log(id);
+    const news = await News.findById(id);
+    console.log(news);
 
-  return res.status(200).json({
-    news,
-  });
+    return res.status(200).json({
+      news,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
 };
 
 exports.createNews = async (req, res, next) => {
   console.log("creating new news");
-  const news = new News({
-    date: new Date(),
-    topic: req.body.topic,
-    image: req.body.image,
-  });
 
   try {
+    const img = req.file.path;
+    const uploadRes = uploader(img);
+
+    const news = new News({
+      date: new Date(),
+      topic: req.body.topic,
+      image: (await uploadRes).file,
+    });
+
     const newNews = await news.save();
     const createResponse = {
       data: newNews,
@@ -86,7 +99,8 @@ exports.deleteNews = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message:err.message, success:false
-    })
+      message: err.message,
+      success: false,
+    });
   }
 };

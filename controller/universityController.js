@@ -1,4 +1,5 @@
 const University = require("../model/uniModel");
+const { uploader } = require("../utils/imageUploadUtils");
 
 //university controller
 
@@ -19,24 +20,36 @@ exports.findAllUniversity = async (req, res, next) => {
 };
 
 exports.findOneUniversity = async (req, res, next) => {
-  var id = req.params.id;
-  const university = await University.findById(id);
-  console.log(university);
-  return res.status(200).json({
-    university,
-  });
+  try {
+    var id = req.params.id;
+    const university = await University.findById(id);
+    console.log(university);
+    return res.status(200).json({
+      university,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
 };
 
 exports.createNewUniversity = async (req, res, next) => {
   console.log("Creating new University");
-  const university = new University({
-    name: req.body.name,
-    destId: req.body.destId,
-    image: req.body.image,
-    website: req.body.website,
-  });
 
   try {
+    const img = req.file.path;
+    const uploadRes = uploader(img);
+
+    const university = new University({
+      name: req.body.name,
+      destId: req.body.destId,
+      image: (await uploadRes).file,
+      website: req.body.website,
+    });
+  
     const newuniversity = await university.save();
     const resData = {
       data: newuniversity,
@@ -52,31 +65,44 @@ exports.createNewUniversity = async (req, res, next) => {
 
 exports.updateNewUniversity = async (req, res, next) => {
   var id = req.params.id;
+  try {
+    const uniUpdate = {
+      name: req.body.name,
+      destId: req.body.destId,
+      image: req.body.image,
+      website: req.body.website,
+    };
 
-  const uniUpdate = {
-    name: req.body.name,
-    destId: req.body.destId,
-    image: req.body.image,
-    website: req.body.website,
-  };
+    const uniUpdated = await University.findByIdAndUpdate(id, uniUpdate);
 
-  const uniUpdated = await University.findByIdAndUpdate(id, uniUpdate);
-
-  const resData = {
-    success: true,
-    message: "university data updated !",
-  };
-  return res.status(200).json(
-    resData,
-  );
+    const resData = {
+      success: true,
+      message: "university data updated !",
+    };
+    return res.status(200).json(resData);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
 };
 
 exports.deleteUniversity = async (req, res, next) => {
-  var id = req.params.id;
-  const university = await University.findByIdAndDelete(id);
+  try {
+    var id = req.params.id;
+    const university = await University.findByIdAndDelete(id);
 
-  return res.status(200).json({
-    message: "university deleted successfully",
-    success: true,
-  });
+    return res.status(200).json({
+      message: "university deleted successfully",
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
 };

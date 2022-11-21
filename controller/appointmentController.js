@@ -1,4 +1,3 @@
-const e = require("express");
 const Appointment = require("../model/appointmentModel");
 
 exports.findAllAppiontment = async (req, res, next) => {
@@ -6,26 +5,31 @@ exports.findAllAppiontment = async (req, res, next) => {
     const allAppointment = await Appointment.find();
     console.log("find all appointment ");
     const response = {
-      appointments:allAppointment, 
-      message:"appointments fetched", 
-      success:true
-    }
+      appointments: allAppointment,
+      message: "appointments fetched",
+      success: true,
+    };
     res.json(response);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err.message, success: false });
   }
 };
 
-exports.findOneAppointment = async (Req, res, next) => {
-  var id = req.params.id;
-  console.log(id);
-  const appointment = await Appointment.findById(id);
-  console.log(appointment);
+exports.findOneAppointment = async (req, res, next) => {
+  try {
+    var id = req.params.id;
+    console.log(id);
+    const appointment = await Appointment.findById(id);
+    console.log(appointment);
 
-  return res.status(200).toJson({
-    appointment,
-  });
+    return res.status(200).toJson({
+      appointment,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message, success: false });
+  }
 };
 
 exports.createNewAppointment = async (req, res, next) => {
@@ -52,24 +56,29 @@ exports.createNewAppointment = async (req, res, next) => {
 };
 
 exports.updateAppointment = async (req, res, next) => {
-  console.log("Update news called ");
+  console.log("Update appointment called ");
   var id = req.params.id;
-  const appointmentUpdate = {
-    enquiryType: req.body.enquiryType,
-    name: req.body.name,
-    email: req.body.emal,
-    enquiry: req.body.enquiry,
-    requestedDate: new Date(),
-  };
+  try {
+    const appointmentUpdate = {
+      enquiryType: req.body.enquiryType,
+      name: req.body.name,
+      email: req.body.emal,
+      enquiry: req.body.enquiry,
+      requestedDate: new Date(),
+    };
 
-  const appointmentUpdated = await Appointment.findByIdAndUpdate(
-    id,
-    appointmentUpdate
-  );
+    const appointmentUpdated = await Appointment.findByIdAndUpdate(
+      id,
+      appointmentUpdate
+    );
 
-  return res.status(200).json({
-    appointmentUpdate,
-  });
+    return res.status(200).json({
+      appointmentUpdate,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message, success: false });
+  }
 };
 
 exports.deleteAppointment = async (req, res, next) => {

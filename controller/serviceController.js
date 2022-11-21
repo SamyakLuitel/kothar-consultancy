@@ -1,8 +1,7 @@
-const { response } = require("express");
 const Service = require("../model/serviceModel");
+const { uploader } = require("../utils/imageUploadUtils");
 
 //service controller
-
 exports.findAllService = async (req, res, next) => {
   try {
     const allServices = await Service.find();
@@ -22,28 +21,34 @@ exports.findAllService = async (req, res, next) => {
 };
 
 exports.findOneService = async (req, res, next) => {
-  var id = req.params.id; // $_GET["id"]
-  console.log(id);
-  const service = await Service.findById(id);
-  console.log(service);
-
-  return res.status(200).json({
-    service,
-  });
+  try {
+    var id = req.params.id;
+    const service = await Service.findById(id);
+    return res.status(200).json({
+      service,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: err.message, success: false });
+  }
 };
 
 exports.createNewService = async (req, res, next) => {
   console.log("Creating new service");
-  const service = new Service({
-    serviceName: req.body.serviceName,
-    descripttion: req.body.descripttion,
-    image: req.body.image,
-    what: req.body.what,
-    who: req.body.who,
-    more: req.body.more,
-  });
+
 
   try {
+    const img = req.file.path;
+    const uploadRes = uploader(img);
+
+    const service = new Service({
+      serviceName: req.body.serviceName,
+      descripttion: req.body.descripttion,
+      image: (await uploadRes).file,
+      what: req.body.what,
+      who: req.body.who,
+      more: req.body.more,
+    });
     const newService = await service.save();
     const response = {
       data: newService,
@@ -83,11 +88,15 @@ exports.updateNewService = async (req, res, next) => {
 
 exports.deleteService = async (req, res, next) => {
   console.log("delete service called");
-  var id = req.params.id;
-  const services = await Service.findByIdAndDelete(id);
-
-  return res.status(200).json({
-    message: "service deleted successfully",
-    success: true,
-  });
+  try {
+    var id = req.params.id;
+    const services = await Service.findByIdAndDelete(id);
+    return res.status(200).json({
+      message: "service deleted successfully",
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: err.message, success: false });
+  }
 };
