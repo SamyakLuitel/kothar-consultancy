@@ -1,3 +1,5 @@
+require("dotenv").config();
+const path = require('path')
 const express = require("express");
 const cors = require("cors");
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -16,14 +18,21 @@ const contactUsRoutes = require("./router/contactUsRoutes");
 const appointmentRoutes = require("./router/appointmentRoutes");
 const newsRoutes = require("./router/newsRoutes");
 
-require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
 
 const multer = require("multer");
 
-const uploader = multer({
-  storage: multer.diskStorage({}),
-  limits: { fileSize: 500000 },
+const uploader =  multer({
+  storage: multer.diskStorage({
+    destination:(req, file, callback)=>{
+      callback(null,'images')
+    }, 
+    filename:(req,file,callback)=>{
+      console.log(file);
+      callback(null, Date.now()+ path.extname(file.originalname) )
+    }
+  }),
+  limits:{fileSize:500000}
 });
 
 cloudinary.config({
@@ -36,7 +45,7 @@ cloudinary.config({
 console.log(cloudinary.config());
 
 const morgan = require("morgan");
-const PORT = 3000;
+const PORT = process.env.PORT | 3000;
 const app = express();
 
 app.use(morgan());
@@ -105,8 +114,10 @@ app.get("/kothar/admin/check", AuthenticateToken, (req, res) => {
 
 app.post("/upload", uploader.single("file"), async (req, res) => {
   console.log("upload called");
-  console.log(req.file.path);
+  console.log(req);
   try {
+    console.log(  req.file.path);
+
     const upload = await cloudinary.uploader.upload(req.file.path);
 
     console.log(upload);
@@ -120,9 +131,3 @@ app.post("/upload", uploader.single("file"), async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
- const config = {
-  api: {
-    bodyParser: false,
-  },
-};

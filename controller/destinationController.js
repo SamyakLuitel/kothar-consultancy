@@ -39,7 +39,6 @@ exports.createNewDestination = async (req, res, next) => {
   console.log("Creating new Destination");
   try {
     const img = req.file.path;
-
     const uploadRes = uploader(img);
 
     const destination = new Destination({

@@ -102,3 +102,10 @@ exports.deleteTestimonial = async (req, res, next) => {
     });
   }
 };
+
+
+exports.config = {
+  api: {
+    bodyParser: false,
+  },
+};
