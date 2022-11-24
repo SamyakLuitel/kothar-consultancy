@@ -1,5 +1,5 @@
 require("dotenv").config();
-const path = require('path')
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -22,18 +22,45 @@ const cloudinary = require("cloudinary").v2;
 
 const multer = require("multer");
 
-const uploader =  multer({
-  storage: multer.diskStorage({
-    destination:(req, file, callback)=>{
-      callback(null,'images')
-    }, 
-    filename:(req,file,callback)=>{
-      console.log(file);
-      callback(null, Date.now()+ path.extname(file.originalname) )
-    }
-  }),
-  limits:{fileSize:500000}
+// const uploader =  multer({
+//   storage: multer.diskStorage({
+//     destination:(req, file, callback)=>{
+//       callback(null,'./images')
+//     },
+//     filename:(req,file,callback)=>{
+//       console.log(file);
+//       callback(null, Date.now()+ path.extname(file.originalname) )
+//     }
+//   }),
+//   limits:{fileSize:500000}
+// });
+
+//Setting storage engine
+const storageEngine = multer.diskStorage({
+  destination: "./images",
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}--${file.originalname}`);
+  },
 });
+
+//initializing multer
+const upload = multer({
+  storage: storageEngine,
+  limits: { fileSize: 1000000 },
+});
+
+const checkFileType = function (file, cb) {
+  //Allowed file extensions
+  const fileTypes = /jpeg|jpg|png|gif|svg/;
+  //check extension names
+  const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  const mimeType = fileTypes.test(file.mimetype);
+  if (mimeType && extName) {
+    return cb(null, true);
+  } else {
+    cb("Error: You can Only Upload Images!!");
+  }
+};
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -112,15 +139,15 @@ app.get("/kothar/admin/check", AuthenticateToken, (req, res) => {
   res.send("admin pannel access approved");
 });
 
-app.post("/upload", uploader.single("file"), async (req, res) => {
+app.post("/upload", upload.single("image"), async (req, res) => {
   console.log("upload called");
-  console.log(req);
+  // console.log(req);
   try {
-    console.log(  req.file.path);
+    console.log(req.file);
 
     const upload = await cloudinary.uploader.upload(req.file.path);
 
-    console.log(upload);
+    // console.log(upload);
     console.log(upload.secure_url);
     return res.json({
       success: true,
