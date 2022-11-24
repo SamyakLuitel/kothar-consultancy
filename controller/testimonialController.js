@@ -43,7 +43,8 @@ exports.createNewTestimonial = async (req, res, next) => {
 
   try {
     console.log(req);
-    const img = req.file.path;
+    // const img = req.file.path;
+const img =    req.body.image
     const uploadRes = uploader(img);
     console.log(uploadRes);
     if ((await uploadRes).success) {

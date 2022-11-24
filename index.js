@@ -36,17 +36,24 @@ const multer = require("multer");
 // });
 
 //Setting storage engine
-const storageEngine = multer.diskStorage({
-  destination: "./images",
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}--${file.originalname}`);
-  },
-});
+// const storageEngine = multer.diskStorage({
+//   destination: "./images",
+//   filename: (req, file, cb) => {
+//     cb(null, `${Date.now()}--${file.originalname}`);
+//   },
+// });
+
+const storage = multer.memoryStorage();
 
 //initializing multer
+// const upload = multer({
+//   storage: storageEngine,
+//   limits: { fileSize: 1000000 },
+// });
+
 const upload = multer({
-  storage: storageEngine,
-  limits: { fileSize: 1000000 },
+  storage,
+  limits: { fileSize: 1000000000 },
 });
 
 const checkFileType = function (file, cb) {
@@ -76,8 +83,10 @@ const PORT = process.env.PORT | 3000;
 const app = express();
 
 app.use(morgan());
-app.use(express.json());
+// app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({limit: '50mb'}));
 app.use(cors());
 
 connectDatabase();
@@ -141,11 +150,10 @@ app.get("/kothar/admin/check", AuthenticateToken, (req, res) => {
 
 app.post("/upload", upload.single("image"), async (req, res) => {
   console.log("upload called");
-  // console.log(req);
   try {
-    console.log(req.file);
+    console.log(req.body.image);
 
-    const upload = await cloudinary.uploader.upload(req.file.path);
+    const upload = await cloudinary.uploader.upload(req.body.image);
 
     // console.log(upload);
     console.log(upload.secure_url);
