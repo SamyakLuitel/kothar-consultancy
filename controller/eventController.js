@@ -50,7 +50,7 @@ exports.createNewEvent = async (req, res, next) => {
   ];
 
   try {
-    const img = req.file.path;
+    const img = req.body.image;
 
     const uploadRes = uploader(img);
     const event = new Event({
@@ -78,13 +78,30 @@ exports.createNewEvent = async (req, res, next) => {
 
 exports.updateNewEvent = async (req, res, next) => {
   var id = req.params.id;
+  var img = req.body.image
 
-  const eventUpdate = {
+  var  eventUpdate = {
     name: req.body.name,
     description: req.body.description,
-    image: req.body.image,
     date: new Date.now(),
   };
+
+  
+  if (!(typeof img === 'undefined')) {
+    if (img != null) {
+      const uploadRes = uploader(img);
+      let updatedImage = (await uploadRes).file
+
+
+      eventUpdate = {
+        name: req.body.name,
+        description: req.body.description,
+        date: new Date.now(),
+        image: updatedImage,
+      };
+  
+    }
+  }
 
   const eventUpdated = await Event.findByIdAndUpdate(id, eventUpdate);
 

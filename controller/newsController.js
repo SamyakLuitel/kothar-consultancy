@@ -40,7 +40,7 @@ exports.createNews = async (req, res, next) => {
   console.log("creating new news");
 
   try {
-    const img = req.file.path;
+    const img = req.body.image;
     const uploadRes = uploader(img);
 
     const news = new News({
@@ -64,14 +64,29 @@ exports.createNews = async (req, res, next) => {
 
 exports.updatedNews = async (req, res, next) => {
   console.log("Update news called ");
+  var img = req.body.image
+
   try {
     var id = req.params.id;
-    const newsUpdate = {
+    var  newsUpdate = {
       date: new Date(),
       topic: req.body.topic,
-      image: req.body.image,
     };
 
+
+    
+  if (!(typeof img === 'undefined')) {
+    if (img != null) {
+      const uploadRes = uploader(img);
+      let updatedImage = (await uploadRes).file
+
+      newsUpdate = {
+        date: new Date(),
+        topic: req.body.topic,
+        image: updatedImage,
+      }
+    }
+  }
     const newsUpdated = await News.findByIdAndUpdate(id, newsUpdate);
     console.log(newsUpdated);
 

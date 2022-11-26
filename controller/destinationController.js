@@ -38,7 +38,7 @@ exports.findOneDestination = async (req, res, next) => {
 exports.createNewDestination = async (req, res, next) => {
   console.log("Creating new Destination");
   try {
-    const img = req.file.path;
+    const img = req.body.image;
     const uploadRes = uploader(img);
 
     const destination = new Destination({
@@ -58,15 +58,30 @@ exports.createNewDestination = async (req, res, next) => {
 
 exports.updateDestination = async (req, res, next) => {
   var id = req.params.id;
+  const img = req.body.image;
 
-  const destinationUpdate = {
+
+  var destinationUpdate = {
     destination: req.body.destination,
     destinationDesc: req.body.destinationDesc,
-    image: req.body.image,
     whyDestination: req.body.whyDestination,
     ans: req.body.ans,
   };
   try {
+    if (!(typeof img === 'undefined')) {
+      if (img != null) {
+        const uploadRes = uploader(img);
+        let updatedImage = (await uploadRes).file
+        destinationUpdate = {
+          destination: req.body.destination,
+          destinationDesc: req.body.destinationDesc,
+          whyDestination: req.body.whyDestination,
+          ans: req.body.ans,
+          image: updatedImage,
+        };
+      }
+    }
+
     const destinationUpdated = await Destination.findByIdAndUpdate(
       id,
       destinationUpdate

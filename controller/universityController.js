@@ -49,7 +49,7 @@ exports.createNewUniversity = async (req, res, next) => {
       image: (await uploadRes).file,
       website: req.body.website,
     });
-  
+
     const newuniversity = await university.save();
     const resData = {
       data: newuniversity,
@@ -65,14 +65,26 @@ exports.createNewUniversity = async (req, res, next) => {
 
 exports.updateNewUniversity = async (req, res, next) => {
   var id = req.params.id;
-  try {
-    const uniUpdate = {
+  var img = req.body.image
+  var uniUpdate;
+  if (typeof img === 'undefined') {
+    uniUpdate = {
       name: req.body.name,
       destId: req.body.destId,
-      image: req.body.image,
       website: req.body.website,
     };
+  } else {
+    const uploadRes = uploader(img);
+    let updatedImage = (await uploadRes).file
 
+    uniUpdate = {
+      name: req.body.name,
+      destId: req.body.destId,
+      image: updatedImage,
+      website: req.body.website,
+    };
+  }
+  try {
     const uniUpdated = await University.findByIdAndUpdate(id, uniUpdate);
 
     const resData = {

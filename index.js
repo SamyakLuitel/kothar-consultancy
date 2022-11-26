@@ -10,7 +10,7 @@ const { AuthenticateToken } = require("./middleware/auth");
 
 const serviceRoute = require("./router/servicesRoutes");
 const destinationRoute = require("./router/destinationRoutes");
-const eventRouet = require("./router/eventRoutes");
+const eventRoute = require("./router/eventRoutes");
 const testimonialRoute = require("./router/testimonialRoutes");
 const uniRoutes = require("./router/universityRoutes");
 const authRoutes = require("./router/authRoutes");
@@ -19,37 +19,8 @@ const appointmentRoutes = require("./router/appointmentRoutes");
 const newsRoutes = require("./router/newsRoutes");
 
 const cloudinary = require("cloudinary").v2;
-
 const multer = require("multer");
-
-// const uploader =  multer({
-//   storage: multer.diskStorage({
-//     destination:(req, file, callback)=>{
-//       callback(null,'./images')
-//     },
-//     filename:(req,file,callback)=>{
-//       console.log(file);
-//       callback(null, Date.now()+ path.extname(file.originalname) )
-//     }
-//   }),
-//   limits:{fileSize:500000}
-// });
-
-//Setting storage engine
-// const storageEngine = multer.diskStorage({
-//   destination: "./images",
-//   filename: (req, file, cb) => {
-//     cb(null, `${Date.now()}--${file.originalname}`);
-//   },
-// });
-
 const storage = multer.memoryStorage();
-
-//initializing multer
-// const upload = multer({
-//   storage: storageEngine,
-//   limits: { fileSize: 1000000 },
-// });
 
 const upload = multer({
   storage,
@@ -83,10 +54,8 @@ const PORT = process.env.PORT | 3000;
 const app = express();
 
 app.use(morgan());
-// app.use(express.json());
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.urlencoded({limit: '50mb'}));
 app.use(cors());
 
 connectDatabase();
@@ -125,7 +94,7 @@ app.get("/version", cors(), (req, res) => {
 app.use("/login", authRoutes);
 app.use("/kothar/services", serviceRoute);
 app.use("/kothar/destinations", destinationRoute);
-app.use("/kothar/events", eventRouet);
+app.use("/kothar/events", eventRoute);
 app.use("/kothar/universities", uniRoutes);
 app.use("/kothar/news", newsRoutes);
 app.use("/kothar/testimonials", testimonialRoute);
@@ -133,11 +102,14 @@ app.use("/kothar/book-appointment", appointmentRoutes);
 app.use("/kothar/send-message", contactUsRoutes);
 
 // admin
+//login 
 app.use("/kothar/admin/login", authRoutes);
 app.use("/kothar/login", authRoutes);
+
+//kothar services
 app.use("/kothar/admin/services", AuthenticateToken, serviceRoute);
 app.use("/kothar/admin/destinations", AuthenticateToken, destinationRoute);
-app.use("/kothar/admin/events", AuthenticateToken, eventRouet);
+app.use("/kothar/admin/events", AuthenticateToken, eventRoute);
 app.use("/kothar/admin/universities", AuthenticateToken, uniRoutes);
 app.use("/kothar/admin/testimonials", AuthenticateToken, testimonialRoute);
 app.use("/kothar/admin/news", AuthenticateToken, newsRoutes);

@@ -48,7 +48,6 @@ exports.createNewAppointment = async (req, res, next) => {
       message: "Your appoint booking is sucessful",
       success: true,
     });
-    // res.status(201).json(newAppointment);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });

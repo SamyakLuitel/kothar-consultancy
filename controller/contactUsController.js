@@ -14,7 +14,7 @@ exports.sendEmail = async (req, res, next) => {
     to: "samkotaku@gmail.com",
     subject: `Contacted by ${req.body.name}`,
     html: `<p> Appointment Booking </p>
-    "<div> booked by " ${req.body.name} , contact no : ${req.body.contactNo}  , email: ${req.body.email}`,
+    "<div> booked by " ${req.body.name} , contact no : ${req.body.contactNo}  , email: ${req.body.email}  , enquiry: ${req.body.enquiry}`,
   };
 
   transporter.sendMail(mailOptions, function (err, info) {

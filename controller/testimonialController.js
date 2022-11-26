@@ -23,7 +23,7 @@ exports.findAllTestimonial = async (req, res, next) => {
 
 exports.findOneTestimonial = async (req, res, next) => {
   try {
-    var id = req.body.id;
+    var id = req.params.id;
     const testimonial = await Testimonial.findById(id);
     console.log(testimonial);
     return res.status(200).json({
@@ -65,18 +65,32 @@ const img =    req.body.image
   }
 };
 
-exports.updateTestimonial = (req, res, next) => {
+exports.updateTestimonial =  async (req, res, next) => {
   var id = req.params.id;
+  const img = req.body.image;
+  console.log(req.body)
 
-  const img = req.file.path;
-
-  const testimonialUpdate = {
+  var  testimonialUpdate = {
     name: req.body.name,
-    description: req.body.description,
-    image: req.body.image,
+    tetimonial: req.body.tetimonial,
   };
 
-  const testimonalUpdated = Testimonial.findByIdAndUpdate(
+  console.log(testimonialUpdate)
+
+  if (!(typeof img === 'undefined')) {
+    if (img != null) {
+      const uploadRes = uploader(img);
+      let updatedImage = (await uploadRes).file
+
+      testimonialUpdate = {
+        name: req.body.name,
+        tetimonial: req.body.tetimonial,
+        image: updatedImage,
+      };
+    }
+  }
+
+  const testimonalUpdated = await Testimonial.findByIdAndUpdate(
     id,
     testimonialUpdate
   );
@@ -90,8 +104,8 @@ exports.updateTestimonial = (req, res, next) => {
 exports.deleteTestimonial = async (req, res, next) => {
   try {
     var id = req.params.id;
-    const Testimonial = await Testimonial.findByIdAndDelete(id);
-    console.log(Testimonial);
+    const testimonial = await Testimonial.findByIdAndDelete(id);
+    console.log(testimonial);
 
     return res.status(200).json({
       message: "testimonial  deleted successfully",

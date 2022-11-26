@@ -38,7 +38,7 @@ exports.createNewService = async (req, res, next) => {
 
 
   try {
-    const img = req.file.path;
+    const img = req.body.image;
     const uploadRes = uploader(img);
 
     const service = new Service({
@@ -64,16 +64,33 @@ exports.createNewService = async (req, res, next) => {
 
 exports.updateNewService = async (req, res, next) => {
   console.log("Update service called");
-  var id = req.params.id; // $_GET["id"]
-  const serviceUpdate = {
+  var id = req.params.id;
+  var img = req.body.image
+
+  var serviceUpdate = {
     serviceName: req.body.serviceName,
     descripttion: req.body.descripttion,
-    image: req.body.image,
     what: req.body.what,
     who: req.body.who,
     more: req.body.more,
   };
 
+
+  if (!(typeof img === 'undefined')) {
+    if (img != null) {
+      const uploadRes = uploader(img);
+      let updatedImage = (await uploadRes).file
+
+      serviceUpdate = {
+        serviceName: req.body.serviceName,
+        descripttion: req.body.descripttion,
+        what: req.body.what,
+        who: req.body.who,
+        more: req.body.more,
+        image: updatedImage,
+      };
+    }
+  }
   try {
     const serviceUpdated = await Service.findByIdAndUpdate(id, serviceUpdate);
     return res.status(200).json({
