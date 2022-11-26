@@ -40,7 +40,7 @@ exports.createNewUniversity = async (req, res, next) => {
   console.log("Creating new University");
 
   try {
-    const img = req.file.path;
+    const img = req.body.image;
     const uploadRes = uploader(img);
 
     const university = new University({

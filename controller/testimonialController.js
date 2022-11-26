@@ -85,6 +85,8 @@ exports.updateTestimonial = (req, res, next) => {
   });
 };
 
+
+
 exports.deleteTestimonial = async (req, res, next) => {
   try {
     var id = req.params.id;
@@ -102,11 +104,4 @@ exports.deleteTestimonial = async (req, res, next) => {
       success: false,
     });
   }
-};
-
-
-exports.config = {
-  api: {
-    bodyParser: false,
-  },
 };
