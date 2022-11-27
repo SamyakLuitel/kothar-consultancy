@@ -44,8 +44,9 @@ exports.createNews = async (req, res, next) => {
     const uploadRes = uploader(img);
 
     const news = new News({
-      date: new Date(),
+      date: new Date(),  // CONVERT DATE 
       topic: req.body.topic,
+      descriptin: req.body.description,
       image: (await uploadRes).file,
     });
 
