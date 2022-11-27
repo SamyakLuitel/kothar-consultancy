@@ -9,6 +9,7 @@ const destinationSchema = new mongoose.Schema(
     destinationDesc: {
       type: String,
     },
+    image: { type: String },
     whyDestination: {
       title: {
         type: String,
