@@ -88,9 +88,6 @@ exports.updateNewEvent = async (req, res, next) => {
     image: req.body.image,
     startTime: req.body.startTime,
     endTime: req.body.endTime,
-    day: eventDay,
-    month: eventMonth + 1,
-    year: eventYear,
   };
 
   
@@ -113,7 +110,8 @@ exports.updateNewEvent = async (req, res, next) => {
   const eventUpdated = await Event.findByIdAndUpdate(id, eventUpdate);
 
   return res.status(200).json({
-    eventUpdated,
+    message: "Event updated successfully",
+    success: true,
   });
 };
 
