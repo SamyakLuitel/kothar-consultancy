@@ -62,7 +62,6 @@ exports.createNewEvent = async (req, res, next) => {
       image: req.body.image,
       startTime: req.body.startTime,
       endTime: req.body.endTime,
-      date: eventDate,
       day: eventDay,
       month: eventMonth + 1,
       year: eventYear,
