@@ -83,7 +83,14 @@ exports.updateNewEvent = async (req, res, next) => {
   var  eventUpdate = {
     name: req.body.name,
     description: req.body.description,
-    date:  Date.now(),
+    location: req.body.location,
+    topic: req.body.topic,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
+    date: eventDate,
+    day: eventDay,
+    month: eventMonth + 1,
+    year: eventYear,
   };
 
   
