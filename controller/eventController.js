@@ -39,7 +39,14 @@ exports.findOneEvent = async (req, res, next) => {
 
 exports.createNewEvent = async (req, res, next) => {
   console.log("Creating new Event");
-  let eventDate = new Date();
+
+  var obtainedDate = req.body.date;
+  var parts = obtainedDate.split('-');
+  // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+  // January - 0, February - 1, etc.
+  var mydate = new Date(parts[0], parts[1] - 1, parts[2]);
+  console.log(mydate.toDateString());
+  let eventDate = mydate;
 
   let dateStr = eventDate.toString().split(" ");
 
@@ -80,7 +87,23 @@ exports.updateNewEvent = async (req, res, next) => {
   var id = req.params.id;
   var img = req.body.image
 
-  var  eventUpdate = {
+  var obtainedDate = req.body.date;
+  var parts = obtainedDate.split('-');
+  // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+  // January - 0, February - 1, etc.
+  var mydate = new Date(parts[0], parts[1] - 1, parts[2]);
+  console.log(mydate.toDateString());
+  let eventDate = mydate;
+
+  let dateStr = eventDate.toString().split(" ");
+
+  const [eventMonth, eventDay, eventYear] = [
+    eventDate.getMonth(),
+    eventDate.getDate(),
+    eventDate.getFullYear(),
+  ];
+
+  var eventUpdate = {
     name: req.body.name,
     description: req.body.description,
     location: req.body.location,
@@ -88,9 +111,10 @@ exports.updateNewEvent = async (req, res, next) => {
     image: req.body.image,
     startTime: req.body.startTime,
     endTime: req.body.endTime,
+    date:obtainedDate
   };
 
-  
+
   if (!(typeof img === 'undefined')) {
     if (img != null) {
       const uploadRes = uploader(img);
@@ -103,7 +127,7 @@ exports.updateNewEvent = async (req, res, next) => {
         date: new Date.now(),
         image: updatedImage,
       };
-  
+
     }
   }
 
