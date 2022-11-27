@@ -17,7 +17,7 @@ exports.findAllNews = async (req, res, next) => {
   }
 };
 
-exports.findOneNews = async (Req, res, next) => {
+exports.findOneNews = async (req, res, next) => {
   try {
     var id = req.params.id;
     console.log(id);
@@ -67,6 +67,7 @@ exports.updatedNews = async (req, res, next) => {
   console.log("Update news called ");
   var img = req.body.image
 
+  console.log("update")
   try {
     var id = req.params.id;
     var  newsUpdate = {
