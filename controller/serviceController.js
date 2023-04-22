@@ -44,6 +44,7 @@ exports.createNewService = async (req, res, next) => {
     const service = new Service({
       serviceName: req.body.serviceName,
       descripttion: req.body.descripttion,
+      moreInfoHeading: req.body.moreInfoHeading,
       image: (await uploadRes).file,
       what: req.body.what,
       who: req.body.who,
@@ -70,6 +71,7 @@ exports.updateNewService = async (req, res, next) => {
   var serviceUpdate = {
     serviceName: req.body.serviceName,
     descripttion: req.body.descripttion,
+    moreInfoHeading: req.body.moreInfoHeading,
     what: req.body.what,
     who: req.body.who,
     more: req.body.more,

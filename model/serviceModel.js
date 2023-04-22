@@ -10,6 +10,10 @@ const serviceModel = new mongoose.Schema(
       type: String,
       required: true,
     },
+    moreInfoHeading: {
+      type: String,
+      required: true
+    },
     image: { type: String },
     what: {
       title: {
@@ -20,7 +24,7 @@ const serviceModel = new mongoose.Schema(
       },
     },
     who: {
-      titlle: {
+      title: {
         type: String,
       },
       desc: {
