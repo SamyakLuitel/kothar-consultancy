@@ -53,10 +53,10 @@ const morgan = require("morgan");
 const PORT = process.env.PORT | 3000;
 const app = express();
 
+app.use(cors());
 app.use(morgan());
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 connectDatabase();
 const swaggerOptions = {
