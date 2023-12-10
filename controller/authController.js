@@ -11,7 +11,7 @@ exports.login=(req, res, next) => {
     }
   
     if (password != "password") {
-      res.send("invalid password");
+      res.status(401).send("invalid password");
     }
     const user = { name: username };
     const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET);
