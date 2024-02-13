@@ -11,7 +11,7 @@ exports.sendEmail = async (req, res, next) => {
 
   const mailOptions = {
     from: "kotharedu@gmail.com",
-    to: "samkotaku@gmail.com",
+    to: "kothareducation@gmail.com",
     subject: `Contacted by ${req.body.name}`,
     html: `<p> Appointment Booking </p>
     "<div> booked by " ${req.body.name} , contact no : ${req.body.contactNo}  , email: ${req.body.email}  , enquiry: ${req.body.enquiry}`,
