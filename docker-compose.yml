@@ -1,0 +1,14 @@
+version: '3'
+services:
+  backend:
+    image: node:latest
+    container_name: express_backend
+    restart: always
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    command: npm start
